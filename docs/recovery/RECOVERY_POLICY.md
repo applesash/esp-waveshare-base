@@ -13,6 +13,12 @@
 .\scripts\github\verify-recovery.ps1
 ```
 
+On Linux, use the repository-native verifier:
+
+```bash
+scripts/github/verify-phase-closeout.sh PHASE-02 origin
+```
+
 ## Create a recovery branch
 
 ```powershell
