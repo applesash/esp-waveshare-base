@@ -155,24 +155,24 @@ static void poll_touch(void)
         return;
     }
     if ((status & 0x0f) > 0 && read_touch_register(GT911_POINT_REGISTER, point, sizeof(point)) == ESP_OK) {
-        uint16_t x = (uint16_t)point[1] | ((uint16_t)point[2] << 8);
-        uint16_t y = (uint16_t)point[3] | ((uint16_t)point[4] << 8);
+        uint16_t x = (uint16_t)point[0] | ((uint16_t)point[1] << 8);
+        uint16_t y = (uint16_t)point[2] | ((uint16_t)point[3] << 8);
         printf("touch_raw count=%u bytes=%02x %02x %02x %02x %02x %02x %02x %02x\n",
                status & 0x0f,
-               point[0],
+             point[0],
                point[1],
                point[2],
                point[3],
                point[4],
                point[5],
                point[6],
-               point[7]);
-        printf("touch_event count=%u track=%u x=%u y=%u size=%u\n",
+             point[7]);
+         printf("touch_event count=%u track=%u x=%u y=%u size=%u\n",
                status & 0x0f,
-               point[0],
+             point[6],
                x,
                y,
-               (uint16_t)point[5] | ((uint16_t)point[6] << 8));
+             (uint16_t)point[4] | ((uint16_t)point[5] << 8));
     }
     clear_touch_status();
 }
