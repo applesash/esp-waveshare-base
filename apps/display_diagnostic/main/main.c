@@ -291,11 +291,11 @@ void app_main(void)
            TOUCH_SDA_GPIO,
            TOUCH_SCL_GPIO);
 
+    check_sdcard();
     initialize_display();
     initialize_rs485();
     check_helper();
     check_rtc();
-    check_sdcard();
     start_touch_monitor();
 
     printf("touch_decode=GT911_POLLING\n");

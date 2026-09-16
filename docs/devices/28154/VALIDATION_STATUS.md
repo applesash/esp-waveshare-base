@@ -26,6 +26,8 @@ Helper diagnostic: [HELPER_DIAGNOSTIC_2026-09-16_230500.md](evidence/HELPER_DIAG
 
 RTC/SD diagnostic: [RTC_SD_DIAGNOSTIC_2026-09-16_233000.md](evidence/RTC_SD_DIAGNOSTIC_2026-09-16_233000.md). RTC transport passed but oscillator-stop status is set; SD mount timed out with no format or write performed.
 
+SD power-cycle validation: [SD_POWER_CYCLE_VALIDATION_2026-09-16_233400.md](evidence/SD_POWER_CYCLE_VALIDATION_2026-09-16_233400.md). SD-first sequencing still timed out; card/slot compatibility remains pending.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)
