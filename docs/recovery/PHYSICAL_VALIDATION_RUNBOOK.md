@@ -28,6 +28,8 @@ scripts/hardware/board-workflow.sh check 28154
 
 Replace `28154` with the connected SKU. Pass `/dev/ttyACM0` as a third argument when more than one serial device is present. The workflow records chip and flash identity but does not validate display, touch, GPIO, bus, relay, or power-cycle behavior.
 
+Known boards are MAC-bound in `scripts/hardware/known-board-macs.conf`; a mismatched SKU/MAC pair fails before any flash confirmation is offered.
+
 When an approved diagnostic firmware exists, flash only after the check passes:
 
 ```bash

@@ -25,6 +25,11 @@ if ! python -m esptool version >/dev/null 2>&1; then
     printf 'Python esptool module is required.\n' >&2
     exit 1
 fi
+registry="scripts/hardware/known-board-macs.conf"
+if [[ ! -f "$registry" ]]; then
+    printf 'Board MAC registry is missing: %s\n' "$registry" >&2
+    exit 1
+fi
 
 if [[ -z "$port" ]]; then
     shopt -s nullglob
@@ -66,6 +71,12 @@ flash_output="$(python -m esptool --port "$port" flash_id 2>&1)" || {
     exit 1
 }
 usb_output="$(lsusb 2>/dev/null | grep -i -E 'Espressif|303a:' || true)"
+actual_mac="$(printf '%s\n' "$chip_output" | awk '/MAC:/ { value=$NF } END { print tolower(value) }')"
+expected_mac="$(awk -v requested_sku="$sku" '$1 == requested_sku { print tolower($2); exit }' "$registry")"
+if [[ "$sku" != unknown && -n "$expected_mac" && "$actual_mac" != "$expected_mac" ]]; then
+    printf 'MAC/SKU mismatch for %s: expected %s, detected %s\n' "$sku" "$expected_mac" "$actual_mac" >&2
+    exit 1
+fi
 
 {
     printf '# ESP32 Probe: %s\n\n' "$stamp"
@@ -74,6 +85,12 @@ usb_output="$(lsusb 2>/dev/null | grep -i -E 'Espressif|303a:' || true)"
     printf -- '- Serial port: `%s`\n' "$port"
     printf -- '- Probe type: read-only chip and flash identity; no erase or firmware write\n'
     printf -- '- USB descriptor: `%s`\n\n' "${usb_output:-not reported}"
+    printf -- '- Detected MAC: `%s`\n' "$actual_mac"
+    if [[ -n "$expected_mac" ]]; then
+        printf -- '- Expected MAC for SKU `%s`: `%s` (MATCH)\n\n' "$sku" "$expected_mac"
+    else
+        printf -- '- Expected MAC for SKU `%s`: not registered\n\n' "$sku"
+    fi
     printf '## Chip probe\n\n```text\n%s\n```\n\n' "$chip_output"
     printf '## Flash probe\n\n```text\n%s\n```\n\n' "$flash_output"
     printf '## Interpretation\n\n'

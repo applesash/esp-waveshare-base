@@ -15,4 +15,4 @@
 | RS-BACKUP-001 | Phase restore point | scripts/github/create-phase-checkpoint.ps1 / scripts/github/create-phase-checkpoint.sh / scripts/github/finalize-phase-closeout.sh / scripts/github/verify-phase-closeout.sh | Recovery verification | All | BASELINED | docs/recovery/RECOVERY_POLICY.md |
 | RS-RECOVERY-001 | Verify latest checkpoint | scripts/github/verify-phase-closeout.sh | Recovery check | All | BASELINED | docs/recovery/RESTORE_POINTS.md |
 | RS-HW-005 | Physical evidence location | scripts/hardware/probe-esp32.sh | Evidence path check | All | BASELINED | docs/devices/<sku>/evidence/ |
-| RS-HW-006 | Exact-SKU physical test evidence | scripts/hardware/board-workflow.sh; scripts/hardware/probe-esp32.sh; docs/recovery/PHYSICAL_VALIDATION_RUNBOOK.md | Hardware validation | All | IN PROGRESS | docs/devices/<sku>/evidence/ |
+| RS-HW-006 | Exact-SKU physical test evidence | scripts/hardware/board-workflow.sh; scripts/hardware/probe-esp32.sh; scripts/hardware/known-board-macs.conf; docs/recovery/PHYSICAL_VALIDATION_RUNBOOK.md | Hardware validation | All | IN PROGRESS | docs/devices/<sku>/evidence/ |
