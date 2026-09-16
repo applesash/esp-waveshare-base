@@ -16,6 +16,8 @@ Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX 
 
 RS485 diagnostic: [RS485_DIAGNOSTIC_2026-09-16_232400.md](evidence/RS485_DIAGNOSTIC_2026-09-16_232400.md). Corrected official mapping is TX GPIO44/RX GPIO43; physical transport is active but exact echo validation remains pending.
 
+RS485 validation: [RS485_VALIDATION_2026-09-16_232800.md](evidence/RS485_VALIDATION_2026-09-16_232800.md). UART0/USB Serial-JTAG console separation and 9600-baud byte-for-byte echo passed.
+
 SD mapping is recorded: 1-bit SDMMC uses CLK GPIO2, CMD GPIO1, D0 GPIO4, with card select through CH32 EXIO4. These pins overlap the documented LCD serial control nets and require board-level sequencing validation before shared use.
 
 Additional peripheral inventory is recorded: CH32V003 helper at I2C 0x24, PCF85063A RTC at 0x51, buzzer EXIO6, RTC interrupt EXIO7, backlight PWM path, battery ADC path, and system power/reset control. The V4.0 schematic marks the QMI8658 IMU block NC/not populated.
