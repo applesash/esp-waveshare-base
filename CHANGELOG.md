@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+- Confirmed local PHASE-01 workspace validation gate and recorded its evidence in the project status and restore-point docs.
+- Remote publish remains pending GitHub authentication and remote repository configuration, so the checkpoint is fully validated locally but not yet published remotely.
+
 ## 0.1.2
 - Completed local PHASE-00 repository baseline and PHASE-01 workspace validation.
 - Added VS Code workspace file for the ESP-IDF project and verified the required toolchain checks using the repository script.
