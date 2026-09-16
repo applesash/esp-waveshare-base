@@ -34,6 +34,8 @@ SD CH32 preparation: [SD_CH32_PREPARE_VALIDATION_2026-09-17_000600.md](evidence/
 
 Official sequence comparison: [SD_OFFICIAL_SEQUENCE_VALIDATION_2026-09-17_001000.md](evidence/SD_OFFICIAL_SEQUENCE_VALIDATION_2026-09-17_001000.md). I2C recovery and CH32 preparation now match the official hardware sequence; card protocol initialization still times out.
 
+SD retry/pull-up validation: [SD_RETRY_PULLUP_VALIDATION_2026-09-17_002500.md](evidence/SD_RETRY_PULLUP_VALIDATION_2026-09-17_002500.md). Three 400 kHz attempts with ESP-IDF internal pull-ups all timed out; no format or write occurred.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)
