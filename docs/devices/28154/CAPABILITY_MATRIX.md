@@ -10,5 +10,5 @@
 | RS485 interface | VERIFIED | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | RS485 TX GPIO43, RX GPIO44; transceiver and green connector path source-verified | Not physically tested |
 | WiFi / Bluetooth | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | ESP32-S3 radio path | Not physically tested |
 | RTC / battery hold | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | RTC and charge circuit expected | Not physically tested |
-| SD card slot | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Board feature present | Not physically tested |
+| SD card slot | VERIFIED | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | 1-bit SDMMC: CLK GPIO2, CMD GPIO1, D0 GPIO4; card select via CH32 EXIO4 | Not physically tested |
 | USB | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Full-speed USB path expected | Not physically tested |

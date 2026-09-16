@@ -8,6 +8,8 @@ LCD implementation blocker: RGB channel R0 and B0 still require exact schematic 
 
 Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX GPIO43, RS485 RX GPIO44, CAN TX GPIO6, and CAN RX GPIO0. Electrical function remains physically untested.
 
+SD mapping is recorded: 1-bit SDMMC uses CLK GPIO2, CMD GPIO1, D0 GPIO4, with card select through CH32 EXIO4. These pins overlap the documented LCD serial control nets and require board-level sequencing validation before shared use.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)
