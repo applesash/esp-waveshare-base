@@ -5,6 +5,7 @@
 #include "driver/uart.h"
 #include "driver/sdmmc_host.h"
 #include "sdmmc_cmd.h"
+#include "esp_io_expander.h"
 #include "bsp/display.h"
 #include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
@@ -83,6 +84,31 @@ static void check_helper(void)
            battery_adc,
            esp_err_to_name(interrupt_status),
            interrupt_state);
+}
+
+static void prepare_board_for_sd(void)
+{
+    esp_io_expander_handle_t helper = bsp_io_expander_init();
+    const uint32_t output_mask = IO_EXPANDER_PIN_NUM_1 |
+                                 IO_EXPANDER_PIN_NUM_3 |
+                                 IO_EXPANDER_PIN_NUM_5 |
+                                 IO_EXPANDER_PIN_NUM_6;
+
+    if (helper == NULL) {
+        printf("sd_board_prepare=FAIL helper_init\n");
+        return;
+    }
+    ESP_ERROR_CHECK(esp_io_expander_set_dir(helper, output_mask, IO_EXPANDER_OUTPUT));
+    ESP_ERROR_CHECK(esp_io_expander_set_dir(helper, IO_EXPANDER_PIN_NUM_7, IO_EXPANDER_INPUT));
+    ESP_ERROR_CHECK(esp_io_expander_set_level(helper, output_mask, 0));
+    vTaskDelay(pdMS_TO_TICKS(200));
+    ESP_ERROR_CHECK(esp_io_expander_set_level(helper,
+                                              IO_EXPANDER_PIN_NUM_5 |
+                                              IO_EXPANDER_PIN_NUM_1 |
+                                              IO_EXPANDER_PIN_NUM_3,
+                                              1));
+    vTaskDelay(pdMS_TO_TICKS(200));
+    printf("sd_board_prepare=PASS ch32=0x24 sys_en=1 lcd_reset=1 touch_reset=1\n");
 }
 
 static void check_rtc(void)
@@ -320,6 +346,7 @@ void app_main(void)
            TOUCH_SDA_GPIO,
            TOUCH_SCL_GPIO);
 
+        prepare_board_for_sd();
     check_sdcard();
     initialize_display();
     initialize_rs485();
