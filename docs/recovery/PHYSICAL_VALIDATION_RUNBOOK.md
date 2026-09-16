@@ -20,6 +20,14 @@ This runbook records physical validation evidence. Source evidence alone must no
 
 ## Required observations
 
+Begin each board session with the read-only identity probe:
+
+```bash
+scripts/hardware/probe-esp32.sh 28154
+```
+
+Replace `28154` with the connected SKU. Pass `/dev/ttyACM0` as a second argument when more than one serial device is present. The probe records chip and flash identity but does not validate display, touch, GPIO, bus, relay, or power-cycle behavior.
+
 For every board, attach evidence for:
 
 - Boot, reset, brownout, and serial logging behavior.
