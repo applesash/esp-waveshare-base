@@ -20,13 +20,21 @@ This runbook records physical validation evidence. Source evidence alone must no
 
 ## Required observations
 
-Begin each board session with the read-only identity probe:
+Begin each board session with the guarded hardware workflow in check mode:
 
 ```bash
-scripts/hardware/probe-esp32.sh 28154
+scripts/hardware/board-workflow.sh check 28154
 ```
 
-Replace `28154` with the connected SKU. Pass `/dev/ttyACM0` as a second argument when more than one serial device is present. The probe records chip and flash identity but does not validate display, touch, GPIO, bus, relay, or power-cycle behavior.
+Replace `28154` with the connected SKU. Pass `/dev/ttyACM0` as a third argument when more than one serial device is present. The workflow records chip and flash identity but does not validate display, touch, GPIO, bus, relay, or power-cycle behavior.
+
+When an approved diagnostic firmware exists, flash only after the check passes:
+
+```bash
+scripts/hardware/board-workflow.sh flash 28154 /dev/ttyACM0 apps/display_diagnostic
+```
+
+Flash mode requires typing `FLASH-28154` and runs `idf.py build flash`; no firmware is written without that confirmation.
 
 For every board, attach evidence for:
 
