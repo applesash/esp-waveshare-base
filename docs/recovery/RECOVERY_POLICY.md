@@ -21,6 +21,14 @@ The verifier accepts any completed phase in the `PHASE-XX` format and checks the
 .\scripts\github\verify-recovery.ps1
 ```
 
+## Create a checkpoint on Linux
+
+```bash
+scripts/github/create-phase-checkpoint.sh PHASE-03 "Serial Storage" origin
+```
+
+The checkpoint script requires the explicit `GATE-PASSED` confirmation, refuses conflicts, missing HTTPS remotes, reused tags, and staged secret/generated files, then commits, tags, pushes, archives, and performs initial remote verification. Run `verify-phase-closeout.sh` after recording the resulting checksum.
+
 
 ## Create a recovery branch
 

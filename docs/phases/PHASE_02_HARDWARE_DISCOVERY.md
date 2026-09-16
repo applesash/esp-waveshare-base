@@ -25,9 +25,6 @@ Do not enter this phase unless the prior mandatory gate passed. Do not leave unt
 2. Record validation evidence and phase acceptance report.
 3. Update `TRACEABILITY_MATRIX.md`, `PROJECT_STATUS.md`, `CHANGELOG.md` when applicable, and `docs/recovery/RESTORE_POINTS.md`.
 4. Ensure no secrets, build caches, or unapproved artifacts are staged.
-5. Create a checkpoint commit using `[PHASE-XX] <Phase Name> - Gate Passed`.
-6. Create immutable annotated tag `phase-XX-complete`.
-7. Push the phase branch and tag over HTTPS without force.
-8. Generate `artifacts/phase-snapshots/phase-XX-complete.zip` from the tag.
+5. Run `scripts/github/create-phase-checkpoint.sh PHASE-02 "Hardware Discovery" origin` to create the commit, immutable tag, remote push, and snapshot.
 9. Run `scripts/github/verify-phase-closeout.sh PHASE-02 origin` on Linux to verify tag identity, commit reachability, snapshot SHA-256, and recorded evidence.
 10. Close the phase only after the verifier passes.
