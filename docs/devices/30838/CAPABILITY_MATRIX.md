@@ -12,3 +12,6 @@
 | Buzzer | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | GPIO46 output | Not physically tested |
 | SD card | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | SPI/SD interface present | Not physically tested |
 | Power input / wide-voltage supply | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | 7~36V input path present | Not physically tested |
+| Display / LCD | NOT_PRESENT | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | Relay controller board; no onboard LCD listed | Not applicable |
+| Touch | NOT_PRESENT | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | No onboard touch controller listed | Not applicable |
+| USB | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | USB Type-C for power, flashing, and communication | Not physically tested |

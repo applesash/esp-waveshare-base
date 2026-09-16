@@ -20,6 +20,16 @@ This runbook records physical validation evidence. Source evidence alone must no
 
 ## Required observations
 
+Before board-specific implementation or physical testing, run the source-backed inventory check:
+
+```bash
+scripts/hardware/check-peripheral-inventory.sh 28154
+scripts/hardware/check-peripheral-inventory.sh 28141
+scripts/hardware/check-peripheral-inventory.sh 30838
+```
+
+Do not mark an SKU inventory complete until every category passes. Record explicitly not-present peripherals rather than silently omitting them.
+
 Begin each board session with the guarded hardware workflow in check mode:
 
 ```bash

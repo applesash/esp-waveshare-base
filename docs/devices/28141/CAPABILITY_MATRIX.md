@@ -12,3 +12,6 @@
 | Wide-range power input | VERIFIED | https://www.waveshare.com/esp32-s3-touch-lcd-4.3b.htm?sku=28141 | 7~36V power path expected | Not physically tested |
 | SD card slot | VERIFIED | https://www.waveshare.com/esp32-s3-touch-lcd-4.3b.htm?sku=28141 | Board feature present | Not physically tested |
 | Digital isolated I/O support | VERIFIED | https://www.waveshare.com/esp32-s3-touch-lcd-4.3b.htm?sku=28141 | Board feature present, exact mapping pending | Not physically tested |
+| LCD backlight | VERIFIED | https://docs.waveshare.com/ESP32-S3-Touch-LCD-4.3B | Integrated display backlight; exact control mapping pending | Not physically tested |
+| USB | VERIFIED | https://docs.waveshare.com/ESP32-S3-Touch-LCD-4.3B | Integrated full-speed USB Type-C path | Not physically tested |
+| Buzzer / speaker | NOT_PRESENT | https://docs.waveshare.com/ESP32-S3-Touch-LCD-4.3B | No buzzer or speaker listed in the exact board resources | Not applicable |

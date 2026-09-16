@@ -58,6 +58,9 @@ Hardware validation evidence shall be stored under `docs/devices/<sku>/evidence/
 ### RS-HW-006
 A GPIO or peripheral mapping is not `VERIFIED` until its exact source is identified. It is not `PHYSICALLY_TESTED` until a test has run on that exact SKU and evidence is recorded.
 
+### RS-HW-007
+Before a hardware phase can close, each supported SKU shall have a source-backed peripheral inventory covering display, touch, I2C, RS485, CAN/TWAI, storage, RTC, audio/buzzer, backlight, power/battery, network, USB, GPIO/helper channels, and explicitly not-present blocks. The inventory check shall be run with `scripts/hardware/check-peripheral-inventory.sh <SKU>`.
+
 ## 2. Approved sources and prohibited source use
 
 ### RS-SRC-001
