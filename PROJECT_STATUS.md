@@ -3,7 +3,7 @@
 - Contract: 3.1.0
 - Platform version: 0.1.0
 - Current phase: PHASE-02 Hardware discovery
-- Current gate: SOURCE EVIDENCE IN PROGRESS
+- Current gate: SOURCE EVIDENCE VERIFIED
 - Authorized phases: PHASE-00, PHASE-01 complete; PHASE-02 active
 - Build mode: Development
 - Target: esp32s3
@@ -19,7 +19,7 @@ Capture exact-SKU source evidence for each supported board, record source-backed
 
 ## Blocking issues
 - No physical validation has been run on the exact hardware yet.
-- PHASE-02 closeout items remain pending: checkpoint/tag/snapshot/recovery verification.
+- PHASE-02 closeout items are complete: checkpoint, annotated tag, remote push, recovery verification, and snapshot checksum are all verified.
 
 ## Known validation needs
 - Exact-SKU GPIO mapping for 28141 remains limited because the source page describes the family rather than a detailed exact-bus map.
@@ -31,12 +31,12 @@ Continue source-backed hardware discovery and complete the PHASE-02 closeout onl
 
 ## Latest restore point
 
-- Completed phase: PHASE-01
-- Git commit: PENDING LOCAL COMMIT
-- Git tag: phase-01-complete
-- Push status: LOCAL ONLY
-- Snapshot package: artifacts/phase-snapshots/phase-01-complete.zip
-- Snapshot SHA-256: PENDING LOCAL GENERATION
-- Validation status: PASS (local workspace check)
-- Remote verification: PENDING
-- Phase-02 source validation: IN PROGRESS
+- Completed phase: PHASE-02
+- Git commit: 31d2966b09a678a0e5efef7868eeaedef552cac7
+- Git tag: phase-02-complete
+- Push status: VERIFIED on origin
+- Snapshot package: artifacts/phase-snapshots/phase-02-complete.zip
+- Snapshot SHA-256: 7894db2b05ccc73d063d1c5d7eb63bd8c757861ab84dcf3b62b600ed1ab89e92
+- Validation status: PASS (source evidence + remote recovery verification)
+- Remote verification: VERIFIED
+- Phase-02 source validation: COMPLETE
