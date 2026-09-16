@@ -12,5 +12,5 @@
 | RS-HELLO-003 | Shared UI acceptance | apps/hello_world | Three-board acceptance | All | NOT STARTED | Pending |
 | RS-GIT-002 | HTTPS browser login | scripts/github/login.ps1 | Auth status check | Host | NOT STARTED | Pending |
 
-| RS-BACKUP-001 | Phase restore point | scripts/github/create-phase-checkpoint.ps1 | Recovery verification | All | BASELINED | docs/recovery/RECOVERY_POLICY.md |
-| RS-RECOVERY-001 | Verify latest checkpoint | scripts/github/verify-recovery.ps1 | Recovery check | All | BASELINED | docs/recovery/RESTORE_POINTS.md |
+| RS-BACKUP-001 | Phase restore point | scripts/github/create-phase-checkpoint.ps1 / scripts/github/verify-phase-closeout.sh | Recovery verification | All | BASELINED | docs/recovery/RECOVERY_POLICY.md |
+| RS-RECOVERY-001 | Verify latest checkpoint | scripts/github/verify-phase-closeout.sh | Recovery check | All | BASELINED | docs/recovery/RESTORE_POINTS.md |

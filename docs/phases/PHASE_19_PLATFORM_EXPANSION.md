@@ -20,5 +20,5 @@ Do not enter unless the prior checkpoint is verified locally and remotely.
 6. Create immutable annotated tag `phase-XX-complete`.
 7. Push the phase branch and tag over HTTPS without force.
 8. Generate `artifacts/phase-snapshots/phase-XX-complete.zip` from the tag.
-9. Verify local and remote tag identity, commit reachability, snapshot SHA-256, and evidence.
-10. Close the phase only after recovery verification passes.
+9. Run `scripts/github/verify-phase-closeout.sh PHASE-19 origin` on Linux to verify tag identity, commit reachability, snapshot SHA-256, and recorded evidence.
+10. Close the phase only after the verifier passes.

@@ -7,17 +7,20 @@
 - Recover by creating a new branch from a verified tag.
 - Verify tag, commit, evidence, and snapshot checksum before recovery.
 
-## Inspect latest checkpoint
+## Inspect latest checkpoint on Linux
+
+```bash
+scripts/github/verify-phase-closeout.sh PHASE-02 origin
+```
+
+The verifier accepts any completed phase in the `PHASE-XX` format and checks the local annotated tag, remote tag identity, snapshot archive, checksum, and recorded status entries.
+
+## Inspect latest checkpoint on Windows
 
 ```powershell
 .\scripts\github\verify-recovery.ps1
 ```
 
-On Linux, use the repository-native verifier:
-
-```bash
-scripts/github/verify-phase-closeout.sh PHASE-02 origin
-```
 
 ## Create a recovery branch
 

@@ -31,7 +31,7 @@
 1. Pass all required tests and gate checks.
 2. Record validation evidence and acceptance report.
 3. Update traceability, status, changelog, and restore-point index.
-4. Run the checkpoint script from the repository root.
+4. Run the OS-appropriate checkpoint script from the repository root; on Linux use the documented `.sh` workflow.
 5. Verify the commit and immutable annotated tag exist locally and remotely.
 6. Verify the local snapshot checksum.
 7. Do not begin the next phase until recovery verification passes.
