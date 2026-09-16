@@ -1,0 +1,9 @@
+{
+  "name": "ihap-local-preview",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "echo Preview implementation begins in PHASE-07",
+    "test": "echo Preview tests begin in PHASE-07"
+  }
+}

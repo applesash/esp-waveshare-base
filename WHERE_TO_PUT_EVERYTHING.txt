@@ -1,0 +1,124 @@
+INDUSTRIAL HMI AND AUTOMATION PLATFORM
+AGENT STARTER PACKAGE INSTALLATION AND FIRST-USE INSTRUCTIONS
+Version 3.1
+
+PACKAGE CONTENTS
+----------------
+1. IHAP_AGENT_STARTER_V3.zip
+2. WHERE_TO_PUT_EVERYTHING.txt (this file)
+
+WHERE TO PUT IT
+---------------
+1. Create a short local working path with no spaces. Recommended Windows path:
+
+   C:\esp\ihap-platform
+
+2. Extract the CONTENTS of IHAP_AGENT_STARTER_V3.zip directly into that folder.
+
+3. After extraction, this file must exist:
+
+   C:\esp\ihap-platform\AGENT_CONTRACT.md
+
+   Do not create an extra nested folder such as:
+
+   C:\esp\ihap-platform\IHAP_AGENT_STARTER_V3\AGENT_CONTRACT.md
+
+4. Open C:\esp\ihap-platform as the workspace root in VS Code or your coding agent.
+
+5. Keep official hardware PDFs, schematics, and example ZIPs under the exact SKU:
+
+   docs\devices\28154\official-documents
+   docs\devices\28141\official-documents
+   docs\devices\30838\official-documents
+
+   Put schematics under each device's `schematic` folder. Put component data sheets under `datasheets`. Put unchanged official demonstration packages under `example-code-reference`. Do not copy those source trees into production components.
+
+MANDATORY FIRST AGENT INSTRUCTION
+---------------------------------
+Paste this into your coding agent after opening the workspace:
+
+Read AGENT_CONTRACT.md and AGENT_STARTUP.md completely.
+Read PROJECT_STATUS.md, TRACEABILITY_MATRIX.md, dependencies.lock,
+docs/phases/PHASE_00_REPOSITORY.md, and docs/phases/PHASE_01_WORKSPACE.md.
+
+You are authorized to perform PHASE-00 and PHASE-01 only.
+Do not generate board drivers, display code, touch code, LVGL code, Web application
+features, relay code, DIO code, RS485 code, CAN code, networking, OTA, or production
+firmware.
+
+First inspect the existing workspace and Git status. Validate the approved repository
+structure. Run the workspace validation script. Confirm Git, GitHub CLI, Python,
+ESP-IDF 5.5.5, CMake, Ninja, the ESP32-S3 toolchain, IDF_PATH, serial-port access,
+and that the workspace path contains no spaces.
+
+Do not reinstall tools that already work. Do not upgrade ESP-IDF. Do not request or
+print credentials. For GitHub, use interactive HTTPS browser authentication through
+the provided GitHub login script and let me complete authentication in the trusted
+browser or terminal prompt.
+
+Before changing files, report the current phase, applicable requirement IDs, expected
+file changes, tests, assumptions, and unknowns. After work, update PROJECT_STATUS.md,
+TRACEABILITY_MATRIX.md, and applicable evidence. Stop at the PHASE-01 gate and report
+results. Do not continue to hardware discovery unless I explicitly authorize PHASE-02.
+
+WINDOWS FIRST STEPS
+-------------------
+1. Open an ESP-IDF 5.5.5 Command Prompt or an ordinary terminal in which the ESP-IDF
+   environment has been exported.
+
+2. Change directory:
+
+   cd C:\esp\ihap-platform
+
+3. Run the workspace check:
+
+   scripts\workspace\check-workspace.cmd
+
+4. If GitHub access is required, run:
+
+   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\github\login.ps1
+
+   Complete the sign-in only in the trusted GitHub browser/device flow. Do not paste a
+   password, token, one-time code, Okta password, or MFA response into the agent chat.
+
+5. Repository creation, visibility, team access, branch protection, Actions, and secrets
+   must follow your applicable organization policy. The supplied initialization script
+   configures an existing approved repository remote. It must not be used to create an
+   unapproved public company repository.
+
+6. To configure an approved HTTPS remote after the repository exists:
+
+   powershell -NoProfile -ExecutionPolicy Bypass -File scripts\github\initialize-repository.ps1 -Owner <approved-owner> -Repository <approved-repository>
+
+USB FLASHING
+------------
+Firmware flashing scripts are intentionally placeholders until the workspace and exact
+board facts are validated. The agent must implement them in the authorized phase using
+official ESP-IDF tools. They must enumerate COM ports, require board and build-mode
+selection, validate `esp32s3`, and never collect Windows administrator credentials.
+If Windows elevation or a USB driver is required, complete that trusted OS prompt
+yourself. Relay and output tests must require confirmation before energizing outputs.
+
+IMPORTANT HARDWARE RULE
+-----------------------
+Do not permit the agent to implement GPIO, RGB timing, GT911, relay, DIO, RS485, CAN,
+RTC, expander, or safe-state code until exact-SKU official sources have been placed in
+the device documentation folders and the registers have been populated. I2C detection
+alone does not satisfy the GT911 touch gate.
+
+WHAT IS INTENTIONALLY NOT IMPLEMENTED
+-------------------------------------
+Most firmware, Web preview, build, flash, CI, and test scripts are safe placeholders.
+This prevents the agent from treating unverified assumptions as working architecture.
+The agent must implement them only during the applicable authorized phase and keep the
+contract, traceability, phase gate, and evidence current.
+
+PHASE CHECKPOINTS
+-----------------
+After a phase gate passes and its evidence/status/traceability are complete, run from the repository root:
+
+  powershell -NoProfile -ExecutionPolicy Bypass -File scripts\github\create-phase-checkpoint.ps1 -Phase PHASE-00 -PhaseName "Repository Baseline"
+
+The script creates an immutable annotated tag, pushes the current branch and tag over HTTPS, creates a local ZIP from the tag, and verifies the remote tag. Never force-push or move a phase tag. Before the next phase, run:
+
+  powershell -NoProfile -ExecutionPolicy Bypass -File scripts\github\verify-recovery.ps1

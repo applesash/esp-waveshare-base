@@ -1,0 +1,9 @@
+name: Package release
+on:
+  workflow_dispatch:
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Workflow implementation is authorized only in the applicable phase and must follow organization policy."

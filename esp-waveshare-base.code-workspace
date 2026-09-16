@@ -1,0 +1,19 @@
+{
+  "folders": [
+    {
+      "name": "esp-waveshare-base",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "idf.espIdfPath": "/home/sascha-hlubek/esp/esp-idf",
+    "idf.pythonBinPath": "/home/sascha-hlubek/.espressif/python_env/idf5.5_py3.12_env/bin/python",
+    "idf.currentSetup": "/home/sascha-hlubek/esp/esp-idf",
+    "cmake.configureOnOpen": false,
+    "files.exclude": {
+      "**/.git": true,
+      "**/build": true,
+      "**/node_modules": true
+    }
+  }
+}

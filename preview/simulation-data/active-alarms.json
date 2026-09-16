@@ -1,0 +1,8 @@
+{
+  "alarms": [
+    {
+      "severity": "WARNING",
+      "message": "Simulated alarm"
+    }
+  ]
+}
