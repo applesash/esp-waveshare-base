@@ -28,7 +28,7 @@
 | LCD_RGB_HSYNC | GPIO38 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_VSYNC | GPIO39 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_DE | GPIO40 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
-| LCD_RGB_R0 | not resolved from schematic text extraction | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | UNVERIFIED |
+| LCD_RGB_R0 | N/A | N/A | UNUSED | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | NOT_PRESENT |
 | LCD_RGB_R1 | GPIO46 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_R2 | GPIO3 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_R3 | GPIO8 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
@@ -40,7 +40,7 @@
 | LCD_RGB_G3 | GPIO11 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_G4 | GPIO10 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_G5 | GPIO9 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
-| LCD_RGB_B0 | not resolved from schematic text extraction | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | UNVERIFIED |
+| LCD_RGB_B0 | N/A | N/A | UNUSED | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | NOT_PRESENT |
 | LCD_RGB_B1 | GPIO5 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_B2 | GPIO45 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | LCD_RGB_B3 | GPIO48 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
