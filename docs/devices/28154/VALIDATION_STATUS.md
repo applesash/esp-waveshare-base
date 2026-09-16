@@ -24,6 +24,8 @@ Additional peripheral inventory is recorded: CH32V003 helper at I2C 0x24, PCF850
 
 Helper diagnostic: [HELPER_DIAGNOSTIC_2026-09-16_230500.md](evidence/HELPER_DIAGNOSTIC_2026-09-16_230500.md)
 
+RTC/SD diagnostic: [RTC_SD_DIAGNOSTIC_2026-09-16_233000.md](evidence/RTC_SD_DIAGNOSTIC_2026-09-16_233000.md). RTC transport passed but oscillator-stop status is set; SD mount timed out with no format or write performed.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)

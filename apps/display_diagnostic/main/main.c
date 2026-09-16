@@ -28,6 +28,8 @@
 #define RS485_TX_GPIO 44
 #define RS485_RX_GPIO 43
 #define RS485_BAUD 9600
+#define RTC_ADDRESS 0x51
+#define RTC_SECONDS_REGISTER 0x04
 
 static i2c_master_dev_handle_t touch_device;
 static esp_lcd_panel_handle_t display_panel;
@@ -79,6 +81,39 @@ static void check_helper(void)
            battery_adc,
            esp_err_to_name(interrupt_status),
            interrupt_state);
+}
+
+static void check_rtc(void)
+{
+    i2c_master_bus_handle_t bus = bsp_i2c_get_handle();
+    i2c_master_dev_handle_t rtc = NULL;
+    i2c_device_config_t device_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = RTC_ADDRESS,
+        .scl_speed_hz = 100000,
+    };
+    uint8_t seconds = 0;
+    uint8_t register_address = RTC_SECONDS_REGISTER;
+    esp_err_t err = bus == NULL ? ESP_ERR_INVALID_STATE : i2c_master_bus_add_device(bus, &device_config, &rtc);
+    if (err == ESP_OK) {
+        err = i2c_master_transmit_receive(rtc, &register_address, 1, &seconds, 1, 1000);
+    }
+    printf("rtc= %s address=0x%02x seconds_bcd=0x%02x\n",
+           esp_err_to_name(err),
+           RTC_ADDRESS,
+           seconds);
+}
+
+static void check_sdcard(void)
+{
+    esp_err_t err = bsp_sdcard_mount();
+    printf("sdcard_mount=%s\n", esp_err_to_name(err));
+    if (err == ESP_OK) {
+        printf("sdcard=PASS card_detected=1\n");
+        bsp_sdcard_unmount();
+    } else {
+        printf("sdcard=NOT_AVAILABLE_OR_NOT_INSERTED\n");
+    }
 }
 
 static void initialize_display(void)
@@ -259,6 +294,8 @@ void app_main(void)
     initialize_display();
     initialize_rs485();
     check_helper();
+    check_rtc();
+    check_sdcard();
     start_touch_monitor();
 
     printf("touch_decode=GT911_POLLING\n");
