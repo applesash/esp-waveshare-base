@@ -25,8 +25,14 @@ repo_root="$(git rev-parse --show-toplevel 2>/dev/null)" || {
     exit 1
 }
 probe="$repo_root/scripts/hardware/probe-esp32.sh"
+build_script="$repo_root/scripts/build/build-board.sh"
+build_registry="$repo_root/scripts/build/board-builds.conf"
 if [[ ! -x "$probe" ]]; then
     printf 'Probe script is missing or not executable: %s\n' "$probe" >&2
+    exit 1
+fi
+if [[ ! -x "$build_script" || ! -f "$build_registry" ]]; then
+    printf 'Board build registry or wrapper is missing.\n' >&2
     exit 1
 fi
 
@@ -53,6 +59,11 @@ case "$mode" in
             printf 'ESP-IDF project is missing CMakeLists.txt: %s\n' "$project_dir" >&2
             exit 1
         fi
+        registered_project="$(awk -F'|' -v requested_sku="$sku" '$1 == requested_sku { print $2; exit }' "$build_registry")"
+        if [[ "$project_dir" != "$registered_project" ]]; then
+            printf 'SKU %s is registered to %s, not %s.\n' "$sku" "$registered_project" "$project_dir" >&2
+            exit 1
+        fi
         command -v idf.py >/dev/null 2>&1 || {
             printf 'idf.py is required for flash mode.\n' >&2
             exit 1
@@ -65,7 +76,8 @@ case "$mode" in
             printf 'Flash cancelled; no firmware was written.\n' >&2
             exit 1
         fi
-        idf.py -C "$project_dir" -p "$port" build flash
+        "$build_script" "$sku" build
+        idf.py -C "$project_dir" -p "$port" flash
         ;;
     *)
         printf 'Unknown mode: %s\n' "$mode" >&2

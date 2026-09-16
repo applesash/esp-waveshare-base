@@ -16,7 +16,13 @@
 #define EXPANDER_SCL_GPIO 9
 #define TOUCH_SDA_GPIO 15
 #define TOUCH_SCL_GPIO 7
+#define GT911_ADDRESS 0x5d
+#define GT911_PRODUCT_ID_REGISTER 0x8140
+#define GT911_STATUS_REGISTER 0x814e
+#define GT911_POINT_REGISTER 0x8150
 #define I2C_SCAN_TIMEOUT_MS 50
+
+static i2c_master_dev_handle_t touch_device;
 
 static void print_identity(void)
 {
@@ -73,6 +79,94 @@ static void scan_bus(const char *name, gpio_num_t sda_gpio, gpio_num_t scl_gpio)
     ESP_ERROR_CHECK(i2c_del_master_bus(bus));
 }
 
+static esp_err_t read_touch_register(uint16_t address, uint8_t *data, size_t length)
+{
+    uint8_t register_address[] = {
+        (uint8_t)(address >> 8),
+        (uint8_t)(address & 0xff),
+    };
+
+    return i2c_master_transmit_receive(
+        touch_device,
+        register_address,
+        sizeof(register_address),
+        data,
+        length,
+        1000);
+}
+
+static void clear_touch_status(void)
+{
+    uint8_t command[] = {
+        (uint8_t)(GT911_STATUS_REGISTER >> 8),
+        (uint8_t)(GT911_STATUS_REGISTER & 0xff),
+        0,
+    };
+
+    ESP_ERROR_CHECK(i2c_master_transmit(touch_device, command, sizeof(command), 1000));
+}
+
+static void start_touch_monitor(void)
+{
+    i2c_master_bus_config_t bus_config = {
+        .i2c_port = I2C_NUM_0,
+        .sda_io_num = TOUCH_SDA_GPIO,
+        .scl_io_num = TOUCH_SCL_GPIO,
+        .clk_source = I2C_CLK_SRC_DEFAULT,
+        .glitch_ignore_cnt = 7,
+        .flags.enable_internal_pullup = true,
+    };
+    i2c_master_bus_handle_t bus = NULL;
+    i2c_device_config_t device_config = {
+        .dev_addr_length = I2C_ADDR_BIT_LEN_7,
+        .device_address = GT911_ADDRESS,
+        .scl_speed_hz = 400000,
+    };
+    uint8_t product_id[4] = {0};
+    esp_err_t err = i2c_new_master_bus(&bus_config, &bus);
+    if (err == ESP_OK) {
+        err = i2c_master_bus_add_device(bus, &device_config, &touch_device);
+    }
+    if (err == ESP_OK) {
+        err = read_touch_register(GT911_PRODUCT_ID_REGISTER, product_id, sizeof(product_id));
+    }
+
+    printf("touch_controller=GT911 address=0x%02x status=%s product_id=%02x%02x%02x%02x\n",
+           GT911_ADDRESS,
+           esp_err_to_name(err),
+           product_id[0],
+           product_id[1],
+           product_id[2],
+           product_id[3]);
+    if (err != ESP_OK) {
+        touch_device = NULL;
+    }
+}
+
+static void poll_touch(void)
+{
+    uint8_t status = 0;
+    uint8_t point[8] = {0};
+
+    if (touch_device == NULL || read_touch_register(GT911_STATUS_REGISTER, &status, 1) != ESP_OK) {
+        return;
+    }
+    if ((status & 0x80) == 0) {
+        return;
+    }
+    if ((status & 0x0f) > 0 && read_touch_register(GT911_POINT_REGISTER, point, sizeof(point)) == ESP_OK) {
+        uint16_t x = (uint16_t)point[1] | ((uint16_t)point[2] << 8);
+        uint16_t y = (uint16_t)point[3] | ((uint16_t)point[4] << 8);
+        printf("touch_event count=%u track=%u x=%u y=%u size=%u\n",
+               status & 0x0f,
+               point[0],
+               x,
+               y,
+               (uint16_t)point[5] | ((uint16_t)point[6] << 8));
+    }
+    clear_touch_status();
+}
+
 void app_main(void)
 {
     print_identity();
@@ -85,12 +179,14 @@ void app_main(void)
 
     scan_bus("expander", EXPANDER_SDA_GPIO, EXPANDER_SCL_GPIO);
     scan_bus("touch", TOUCH_SDA_GPIO, TOUCH_SCL_GPIO);
+    start_touch_monitor();
 
     printf("display_init=NOT_IMPLEMENTED\n");
-    printf("touch_decode=NOT_IMPLEMENTED\n");
+    printf("touch_decode=GT911_POLLING\n");
     printf("diagnostic_complete=PASS\n");
 
     while (true) {
+        poll_touch();
         vTaskDelay(pdMS_TO_TICKS(1000));
     }
 }
