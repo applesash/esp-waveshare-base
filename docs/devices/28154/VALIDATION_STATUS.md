@@ -4,6 +4,8 @@ Source-based hardware facts have been extracted from the official Waveshare page
 
 Current status: CONNECTION AND GT911 TOUCH COORDINATES VERIFIED; LCD FUNCTIONAL VALIDATION PENDING
 
+LCD implementation blocker: RGB channel R0 and B0 still require exact schematic confirmation; ST7701 initialization commands and RGB timing values are not yet recorded.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)
