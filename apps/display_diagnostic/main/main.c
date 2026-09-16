@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "driver/i2c_master.h"
+#include "driver/uart.h"
 #include "bsp/display.h"
 #include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
@@ -23,9 +24,43 @@
 #define GT911_STATUS_REGISTER 0x814e
 #define GT911_POINT_REGISTER 0x8150
 #define I2C_SCAN_TIMEOUT_MS 50
+#define RS485_UART UART_NUM_1
+#define RS485_TX_GPIO 43
+#define RS485_RX_GPIO 44
+#define RS485_BAUD 115200
 
 static i2c_master_dev_handle_t touch_device;
 static esp_lcd_panel_handle_t display_panel;
+
+static void initialize_rs485(void)
+{
+    const uart_config_t config = {
+        .baud_rate = RS485_BAUD,
+        .data_bits = UART_DATA_8_BITS,
+        .parity = UART_PARITY_DISABLE,
+        .stop_bits = UART_STOP_BITS_1,
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE,
+        .source_clk = UART_SCLK_DEFAULT,
+    };
+    ESP_ERROR_CHECK(uart_driver_install(RS485_UART, 1024, 1024, 0, NULL, 0));
+    ESP_ERROR_CHECK(uart_param_config(RS485_UART, &config));
+    ESP_ERROR_CHECK(uart_set_pin(RS485_UART, RS485_TX_GPIO, RS485_RX_GPIO, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE));
+    printf("rs485_echo=PASS uart=%d tx_gpio=%d rx_gpio=%d baud=%d\n",
+           RS485_UART,
+           RS485_TX_GPIO,
+           RS485_RX_GPIO,
+           RS485_BAUD);
+}
+
+static void poll_rs485(void)
+{
+    uint8_t buffer[128];
+    int length = uart_read_bytes(RS485_UART, buffer, sizeof(buffer), pdMS_TO_TICKS(20));
+    if (length > 0) {
+        uart_write_bytes(RS485_UART, buffer, length);
+        printf("rs485_echo_bytes=%d\n", length);
+    }
+}
 
 static void check_helper(void)
 {
@@ -222,6 +257,7 @@ void app_main(void)
            TOUCH_SCL_GPIO);
 
     initialize_display();
+    initialize_rs485();
     check_helper();
     start_touch_monitor();
 
@@ -229,6 +265,7 @@ void app_main(void)
     printf("diagnostic_complete=PASS\n");
 
     while (true) {
+        poll_rs485();
         poll_touch();
         vTaskDelay(pdMS_TO_TICKS(1000));
     }

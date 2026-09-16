@@ -9,8 +9,8 @@
 | TOUCH_INT | not specified on the source page | N/A | Input | N/A | N/A | N/A | N/A | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | UNVERIFIED |
 | GREEN_CONNECTOR_SDA | GPIO15 | H4 SDA | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | GREEN_CONNECTOR_SCL | GPIO7 | H4 SCL | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
-| RS485_TX | GPIO43 | H4 RS485_TX / transceiver DI | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
-| RS485_RX | GPIO44 | H4 RS485_RX / transceiver RO | Input | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
+| RS485_TX | GPIO43 | H4 RS485_TX / transceiver DI | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED; board direction control |
+| RS485_RX | GPIO44 | H4 RS485_RX / transceiver RO | Input | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED; board direction control |
 | CAN_TX | GPIO6 | TJA1051 TXD path | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | CAN_RX | GPIO0 | TJA1051 RXD path | Input | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | SDMMC_CLK | GPIO2 | N/A | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED |
