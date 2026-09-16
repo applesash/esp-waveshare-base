@@ -27,6 +27,25 @@
 static i2c_master_dev_handle_t touch_device;
 static esp_lcd_panel_handle_t display_panel;
 
+static void check_helper(void)
+{
+    esp_io_expander_handle_t helper = bsp_io_expander_init();
+    uint16_t battery_adc = 0;
+    uint8_t interrupt_state = 0;
+
+    if (helper == NULL) {
+        printf("ch32_helper=FAIL init\n");
+        return;
+    }
+    esp_err_t adc_status = custom_io_expander_get_adc(helper, &battery_adc);
+    esp_err_t interrupt_status = custom_io_expander_get_int(helper, &interrupt_state);
+    printf("ch32_helper=PASS address=0x24 battery_adc_status=%s battery_adc=%u interrupt_status=%s interrupt=%u\n",
+           esp_err_to_name(adc_status),
+           battery_adc,
+           esp_err_to_name(interrupt_status),
+           interrupt_state);
+}
+
 static void initialize_display(void)
 {
     bsp_display_config_t display_config = {
@@ -203,6 +222,7 @@ void app_main(void)
            TOUCH_SCL_GPIO);
 
     initialize_display();
+    check_helper();
     start_touch_monitor();
 
     printf("touch_decode=GT911_POLLING\n");

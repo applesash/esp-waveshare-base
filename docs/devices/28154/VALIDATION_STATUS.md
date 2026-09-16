@@ -18,6 +18,8 @@ SD mapping is recorded: 1-bit SDMMC uses CLK GPIO2, CMD GPIO1, D0 GPIO4, with ca
 
 Additional peripheral inventory is recorded: CH32V003 helper at I2C 0x24, PCF85063A RTC at 0x51, buzzer EXIO6, RTC interrupt EXIO7, backlight PWM path, battery ADC path, and system power/reset control. The V4.0 schematic marks the QMI8658 IMU block NC/not populated.
 
+Helper diagnostic: [HELPER_DIAGNOSTIC_2026-09-16_230500.md](evidence/HELPER_DIAGNOSTIC_2026-09-16_230500.md)
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)
