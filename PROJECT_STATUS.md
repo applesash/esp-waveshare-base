@@ -37,6 +37,6 @@ Continue source-backed hardware discovery and complete the PHASE-02 closeout onl
 - Push status: VERIFIED on origin
 - Snapshot package: artifacts/phase-snapshots/phase-02-complete.zip
 - Snapshot SHA-256: 7894db2b05ccc73d063d1c5d7eb63bd8c757861ab84dcf3b62b600ed1ab89e92
-- Validation status: PASS (source evidence + remote recovery verification)
+- Validation status: PASS (checkpoint + remote recovery verification)
 - Remote verification: VERIFIED
 - Phase-02 source validation: COMPLETE
