@@ -25,9 +25,9 @@
 #define GT911_POINT_REGISTER 0x8150
 #define I2C_SCAN_TIMEOUT_MS 50
 #define RS485_UART UART_NUM_1
-#define RS485_TX_GPIO 43
-#define RS485_RX_GPIO 44
-#define RS485_BAUD 115200
+#define RS485_TX_GPIO 44
+#define RS485_RX_GPIO 43
+#define RS485_BAUD 9600
 
 static i2c_master_dev_handle_t touch_device;
 static esp_lcd_panel_handle_t display_panel;

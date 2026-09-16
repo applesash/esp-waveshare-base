@@ -12,7 +12,9 @@ LCD run: [LCD_DIAGNOSTIC_2026-09-16_230300.md](evidence/LCD_DIAGNOSTIC_2026-09-1
 
 LCD visual run: [LCD_VISUAL_VALIDATION_2026-09-16_230400.md](evidence/LCD_VISUAL_VALIDATION_2026-09-16_230400.md)
 
-Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX GPIO43, RS485 RX GPIO44, CAN TX GPIO6, and CAN RX GPIO0. Electrical function remains physically untested.
+Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX GPIO44, RS485 RX GPIO43, CAN TX GPIO6, and CAN RX GPIO0. Electrical function remains physically untested.
+
+RS485 diagnostic: [RS485_DIAGNOSTIC_2026-09-16_232400.md](evidence/RS485_DIAGNOSTIC_2026-09-16_232400.md). Corrected official mapping is TX GPIO44/RX GPIO43; physical transport is active but exact echo validation remains pending.
 
 SD mapping is recorded: 1-bit SDMMC uses CLK GPIO2, CMD GPIO1, D0 GPIO4, with card select through CH32 EXIO4. These pins overlap the documented LCD serial control nets and require board-level sequencing validation before shared use.
 
