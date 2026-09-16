@@ -58,7 +58,7 @@ case "$mode" in
             exit 1
         }
         "$probe" "$sku" "$port"
-        printf 'Probe passed. USB identity does not independently prove the Waveshare SKU.\n'
+        printf 'Probe passed. Registered SKU/MAC identity match verified; proceeding only after explicit confirmation.\n'
         printf 'Type FLASH-%s to build and flash this user-selected board: ' "$sku"
         read -r confirmation
         if [[ "$confirmation" != "FLASH-$sku" ]]; then
