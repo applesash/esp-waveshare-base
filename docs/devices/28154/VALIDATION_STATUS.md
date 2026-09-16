@@ -2,11 +2,15 @@
 
 Source-based hardware facts have been extracted from the official Waveshare page and recorded. On 2026-09-16, the user-identified exact board responded on `/dev/ttyACM0` as an ESP32-S3 USB JTAG/serial device with MAC `94:a9:90:dd:16:6c`; the latest MAC-validated evidence is recorded in [PHYSICAL_VALIDATION_2026-09-16_214937.md](evidence/PHYSICAL_VALIDATION_2026-09-16_214937.md).
 
-Current status: CONNECTION AND GT911 TOUCH COORDINATES VERIFIED; LCD FUNCTIONAL VALIDATION PENDING
+Current status: CONNECTION, GT911 TOUCH COORDINATES, AND LCD TEST PATTERN VERIFIED
 
-LCD implementation status: ST7701 initialization is delegated to the official managed BSP; RGB565 channel mapping and timing values are source-recorded.
+LCD implementation status: ST7701 initialization is delegated to the official managed BSP; RGB565 channel mapping and timing values are source-recorded. Runtime initialization and RGB test-pattern transfer passed.
 
-LCD firmware implementation is now present through the official managed BSP and has been flashed, but runtime pixel validation is pending because the USB JTAG/serial device disconnected during startup and has not re-enumerated.
+LCD firmware implementation is present through the official managed BSP and has been flashed. Runtime initialization and visual RGB pattern validation passed.
+
+LCD run: [LCD_DIAGNOSTIC_2026-09-16_230300.md](evidence/LCD_DIAGNOSTIC_2026-09-16_230300.md)
+
+LCD visual run: [LCD_VISUAL_VALIDATION_2026-09-16_230400.md](evidence/LCD_VISUAL_VALIDATION_2026-09-16_230400.md)
 
 Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX GPIO43, RS485 RX GPIO44, CAN TX GPIO6, and CAN RX GPIO0. Electrical function remains physically untested.
 
