@@ -32,6 +32,8 @@ Raw SD probe: [SD_RAW_PROBE_2026-09-16_234600.md](evidence/SD_RAW_PROBE_2026-09-
 
 SD CH32 preparation: [SD_CH32_PREPARE_VALIDATION_2026-09-17_000600.md](evidence/SD_CH32_PREPARE_VALIDATION_2026-09-17_000600.md). Official helper/power/reset sequencing passes, but the 16 GB card still times out before filesystem detection.
 
+Official sequence comparison: [SD_OFFICIAL_SEQUENCE_VALIDATION_2026-09-17_001000.md](evidence/SD_OFFICIAL_SEQUENCE_VALIDATION_2026-09-17_001000.md). I2C recovery and CH32 preparation now match the official hardware sequence; card protocol initialization still times out.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)

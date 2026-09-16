@@ -6,6 +6,7 @@
 #include "driver/sdmmc_host.h"
 #include "sdmmc_cmd.h"
 #include "esp_io_expander.h"
+#include "esp_rom_sys.h"
 #include "bsp/display.h"
 #include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
@@ -88,6 +89,38 @@ static void check_helper(void)
 
 static void prepare_board_for_sd(void)
 {
+    gpio_config_t bus_pins = {
+        .pin_bit_mask = (1ULL << TOUCH_SDA_GPIO) | (1ULL << TOUCH_SCL_GPIO),
+        .mode = GPIO_MODE_INPUT,
+        .pull_up_en = GPIO_PULLUP_ENABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .intr_type = GPIO_INTR_DISABLE,
+    };
+    ESP_ERROR_CHECK(gpio_config(&bus_pins));
+    gpio_set_direction(TOUCH_SCL_GPIO, GPIO_MODE_OUTPUT_OD);
+    gpio_set_pull_mode(TOUCH_SCL_GPIO, GPIO_PULLUP_ONLY);
+    gpio_set_level(TOUCH_SCL_GPIO, 1);
+    esp_rom_delay_us(10);
+    for (int pulse = 0; pulse < 9 && gpio_get_level(TOUCH_SDA_GPIO) == 0; ++pulse) {
+        gpio_set_level(TOUCH_SCL_GPIO, 0);
+        esp_rom_delay_us(10);
+        gpio_set_level(TOUCH_SCL_GPIO, 1);
+        esp_rom_delay_us(10);
+    }
+    gpio_set_direction(TOUCH_SDA_GPIO, GPIO_MODE_OUTPUT_OD);
+    gpio_set_pull_mode(TOUCH_SDA_GPIO, GPIO_PULLUP_ONLY);
+    gpio_set_level(TOUCH_SDA_GPIO, 0);
+    esp_rom_delay_us(10);
+    gpio_set_level(TOUCH_SCL_GPIO, 1);
+    esp_rom_delay_us(10);
+    gpio_set_level(TOUCH_SDA_GPIO, 1);
+    esp_rom_delay_us(10);
+    gpio_set_direction(TOUCH_SDA_GPIO, GPIO_MODE_INPUT);
+    gpio_set_direction(TOUCH_SCL_GPIO, GPIO_MODE_INPUT);
+    gpio_set_pull_mode(TOUCH_SDA_GPIO, GPIO_PULLUP_ONLY);
+    gpio_set_pull_mode(TOUCH_SCL_GPIO, GPIO_PULLUP_ONLY);
+    vTaskDelay(pdMS_TO_TICKS(20));
+
     esp_io_expander_handle_t helper = bsp_io_expander_init();
     const uint32_t output_mask = IO_EXPANDER_PIN_NUM_1 |
                                  IO_EXPANDER_PIN_NUM_3 |
