@@ -4,7 +4,9 @@ Source-based hardware facts have been extracted from the official Waveshare page
 
 Current status: CONNECTION AND GT911 TOUCH COORDINATES VERIFIED; LCD FUNCTIONAL VALIDATION PENDING
 
-LCD implementation blocker: ST7701 initialization commands and RGB timing values are not yet recorded. R0 and B0 are intentionally unused in the documented 16-bit RGB wiring.
+LCD implementation status: ST7701 initialization is delegated to the official managed BSP; RGB565 channel mapping and timing values are source-recorded.
+
+LCD firmware implementation is now present through the official managed BSP and has been flashed, but runtime pixel validation is pending because the USB JTAG/serial device disconnected during startup and has not re-enumerated.
 
 Green connector/source mapping is now recorded: SDA GPIO15, SCL GPIO7, RS485 TX GPIO43, RS485 RX GPIO44, CAN TX GPIO6, and CAN RX GPIO0. Electrical function remains physically untested.
 

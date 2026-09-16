@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 #include "driver/i2c_master.h"
+#include "bsp/display.h"
+#include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
 #include "esp_err.h"
 #include "esp_flash.h"
@@ -23,6 +25,27 @@
 #define I2C_SCAN_TIMEOUT_MS 50
 
 static i2c_master_dev_handle_t touch_device;
+static esp_lcd_panel_handle_t display_panel;
+
+static void initialize_display(void)
+{
+    bsp_display_config_t display_config = {
+        .max_transfer_sz = 480 * 16 * sizeof(uint16_t),
+    };
+    ESP_ERROR_CHECK(bsp_display_new(&display_config, &display_panel, NULL));
+    ESP_ERROR_CHECK(bsp_display_brightness_init());
+    ESP_ERROR_CHECK(bsp_display_backlight_on());
+
+    static uint16_t line[480];
+    for (int y = 0; y < 480; ++y) {
+        uint16_t color = y < 160 ? 0xf800 : (y < 320 ? 0x07e0 : 0x001f);
+        for (size_t x = 0; x < 480; ++x) {
+            line[x] = color;
+        }
+        ESP_ERROR_CHECK(esp_lcd_panel_draw_bitmap(display_panel, 0, y, 480, y + 1, line));
+    }
+    printf("lcd_init=PASS resolution=480x480 pattern=red-green-blue\n");
+}
 
 static void print_identity(void)
 {
@@ -108,22 +131,14 @@ static void clear_touch_status(void)
 
 static void start_touch_monitor(void)
 {
-    i2c_master_bus_config_t bus_config = {
-        .i2c_port = I2C_NUM_0,
-        .sda_io_num = TOUCH_SDA_GPIO,
-        .scl_io_num = TOUCH_SCL_GPIO,
-        .clk_source = I2C_CLK_SRC_DEFAULT,
-        .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = true,
-    };
-    i2c_master_bus_handle_t bus = NULL;
+    i2c_master_bus_handle_t bus = bsp_i2c_get_handle();
     i2c_device_config_t device_config = {
         .dev_addr_length = I2C_ADDR_BIT_LEN_7,
         .device_address = GT911_ADDRESS,
         .scl_speed_hz = 400000,
     };
     uint8_t product_id[4] = {0};
-    esp_err_t err = i2c_new_master_bus(&bus_config, &bus);
+    esp_err_t err = bus == NULL ? ESP_ERR_INVALID_STATE : ESP_OK;
     if (err == ESP_OK) {
         err = i2c_master_bus_add_device(bus, &device_config, &touch_device);
     }
@@ -187,11 +202,9 @@ void app_main(void)
            TOUCH_SDA_GPIO,
            TOUCH_SCL_GPIO);
 
-    scan_bus("expander", EXPANDER_SDA_GPIO, EXPANDER_SCL_GPIO);
-    scan_bus("touch", TOUCH_SDA_GPIO, TOUCH_SCL_GPIO);
+    initialize_display();
     start_touch_monitor();
 
-    printf("display_init=NOT_IMPLEMENTED\n");
     printf("touch_decode=GT911_POLLING\n");
     printf("diagnostic_complete=PASS\n");
 
