@@ -6,8 +6,8 @@
 | GT911 touch controller | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Touch stack via I2C and interrupt path | Not physically tested |
 | 5-point capacitive touch | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Touch input to ESP32-S3 | Not physically tested |
 | I2C expansion / IO bus | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | TCA9554 IO expander expected | Not physically tested |
-| CAN interface | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Board-level peripheral, exact mapping pending | Not physically tested |
-| RS485 interface | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Board-level peripheral, exact mapping pending | Not physically tested |
+| CAN interface | VERIFIED | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | CAN TX GPIO6, RX GPIO0; transceiver and connector path source-verified | Not physically tested |
+| RS485 interface | VERIFIED | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | RS485 TX GPIO43, RX GPIO44; transceiver and green connector path source-verified | Not physically tested |
 | WiFi / Bluetooth | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | ESP32-S3 radio path | Not physically tested |
 | RTC / battery hold | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | RTC and charge circuit expected | Not physically tested |
 | SD card slot | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | Board feature present | Not physically tested |
