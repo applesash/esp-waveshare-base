@@ -29,6 +29,16 @@ scripts/github/create-phase-checkpoint.sh PHASE-03 "Serial Storage" origin
 
 The checkpoint script requires the explicit `GATE-PASSED` confirmation, refuses conflicts, missing HTTPS remotes, reused tags, and staged secret/generated files, then commits, tags, pushes, archives, and performs initial remote verification. Run `verify-phase-closeout.sh` after recording the resulting checksum.
 
+## Finalize a checkpoint on Linux
+
+```bash
+scripts/github/finalize-phase-closeout.sh PHASE-03 "SOURCE EVIDENCE VERIFIED" origin
+```
+
+This records the immutable tag commit, remote status, snapshot path, checksum, and validation result in the project status and restore-point files, publishes that documentation commit, and reruns the verifier.
+
+Exact-board physical validation is documented in [PHYSICAL_VALIDATION_RUNBOOK.md](PHYSICAL_VALIDATION_RUNBOOK.md).
+
 
 ## Create a recovery branch
 

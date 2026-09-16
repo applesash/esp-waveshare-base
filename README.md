@@ -11,3 +11,5 @@ Only PHASE-00 and PHASE-01 are initially authorized.
 
 ## Phase recovery
 Every successful phase must be committed, tagged, pushed, snapshotted, and verified before the next phase begins. See `docs/recovery/RECOVERY_POLICY.md`.
+
+On Linux, the repeatable workflow is `scripts/github/create-phase-checkpoint.sh`, followed by `scripts/github/finalize-phase-closeout.sh` and `scripts/github/verify-phase-closeout.sh`.
