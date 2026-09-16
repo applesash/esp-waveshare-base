@@ -48,7 +48,8 @@ fi
 
 stamp="$(date +%Y-%m-%d_%H%M%S)"
 if [[ "$sku" != unknown && -d "docs/devices/$sku" ]]; then
-    output="docs/devices/$sku/PHYSICAL_VALIDATION_${stamp}.md"
+    mkdir -p "docs/devices/$sku/evidence"
+    output="docs/devices/$sku/evidence/PHYSICAL_VALIDATION_${stamp}.md"
 else
     mkdir -p artifacts/hardware-probes
     output="artifacts/hardware-probes/probe-${stamp}.md"

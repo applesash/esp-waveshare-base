@@ -41,4 +41,4 @@ For every board, attach evidence for:
 
 ## Evidence locations
 
-Store board-specific measurements and photographs under the matching `docs/devices/<SKU>/` directory. Update that directory's `VALIDATION_STATUS.md` only after the observations are complete and reproducible.
+Store board-specific measurements and photographs under the matching `docs/devices/<SKU>/evidence/` directory. Update that directory's `VALIDATION_STATUS.md` only after the observations are complete and reproducible.
