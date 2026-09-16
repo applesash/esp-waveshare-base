@@ -2,33 +2,32 @@
 
 - Contract: 3.1.0
 - Platform version: 0.1.0
-- Current phase: PHASE-01 Workspace validation
-- Current gate: LOCAL GATE PASSED
-- Authorized phases: PHASE-00 and PHASE-01 only
+- Current phase: PHASE-02 Hardware discovery
+- Current gate: SOURCE EVIDENCE IN PROGRESS
+- Authorized phases: PHASE-00, PHASE-01 complete; PHASE-02 active
 - Build mode: Development
 - Target: esp32s3
 - ESP-IDF baseline: 5.5.5
 
 ## Board status
-- SKU 28154: UNVERIFIED
-- SKU 28141: UNVERIFIED
-- SKU 30838: UNVERIFIED
+- SKU 28154: SOURCE-IDENTIFIED; GPIO/capability records populated from official page; physical validation pending
+- SKU 28141: SOURCE-IDENTIFIED; same electronics family as non-box 4.3B; exact GPIO mapping still pending
+- SKU 30838: SOURCE-IDENTIFIED; relay family and GPIO terms populated from official wiki; physical validation pending
 
 ## Current work item
-Complete local baseline and workspace validation for PHASE-00 and PHASE-01; stop at the PHASE-01 gate until remote publish/auth is configured.
+Capture exact-SKU source evidence for each supported board, record source-backed GPIO and capability facts, and complete the documented PHASE-02 closeout tasks.
 
 ## Blocking issues
-- GitHub CLI authentication and remote repository setup are not available, so remote push and remote tag verification remain pending.
+- No physical validation has been run on the exact hardware yet.
+- PHASE-02 closeout items remain pending: checkpoint/tag/snapshot/recovery verification.
 
 ## Known validation needs
-- Exact-SKU source packages and revisions
-- Complete GPIO, expander, and safe-state maps
-- RGB timing and display sequencing for both LCD devices
-- GT911 reset/interrupt/address/transform for both LCD devices
-- Full relay-board DIO, relay, RS485, SD, and other capability mapping
+- Exact-SKU GPIO mapping for 28141 remains limited because the source page describes the family rather than a detailed exact-bus map.
+- Safe-state and expander-level mapping remains pending for all boards.
+- Display timing, touch transform, and relay safety validation remain pending physical tests.
 
 ## Next permitted action
-Stop at the PHASE-01 gate. Remote publish, recovery verification, and tag verification remain pending until GitHub auth and the repository remote are configured.
+Continue source-backed hardware discovery and complete the PHASE-02 closeout only after evidence and the validation status are recorded.
 
 ## Latest restore point
 
@@ -40,3 +39,4 @@ Stop at the PHASE-01 gate. Remote publish, recovery verification, and tag verifi
 - Snapshot SHA-256: PENDING LOCAL GENERATION
 - Validation status: PASS (local workspace check)
 - Remote verification: PENDING
+- Phase-02 source validation: IN PROGRESS

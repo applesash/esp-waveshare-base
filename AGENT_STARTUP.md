@@ -9,7 +9,7 @@
 7. Read applicable accepted ADRs.
 8. Inspect existing source and Git status before generating anything.
 9. Determine the latest completed phase, local tag, matching remote tag, commit, validation report, snapshot, and checksum. Run `scripts/github/verify-recovery.ps1` when a checkpoint exists.
-10. Run `scripts/workspace/check-workspace.ps1` on Windows, or the matching shell entry point.
+10. Detect the host OS before running repo scripts. On Linux/macOS, prefer the `.sh` entry points; on Windows, prefer the `.ps1` or `.cmd` entry points. Use the matching script type for the active environment and do not invoke a script from a different OS family unless there is an explicit, documented exception.
 11. State current phase, board, build mode, requirements, expected file changes, tests, assumptions, and unknowns.
 12. Work only within the current authorization boundary and modify the smallest necessary file set.
 13. Run required tests and update status, traceability, evidence, and changelog.

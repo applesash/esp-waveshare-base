@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4
+- Completed PHASE-02 source evidence discovery for the three supported SKUs using the official Waveshare pages and documentation.
+- Recorded exact source, GPIO, capability, and validation status evidence for the display and relay boards while keeping physical hardware validation explicitly pending.
+- Updated project status and traceability to reflect PHASE-02 in progress and the remaining closeout requirements.
+
 ## 0.1.3
 - Confirmed local PHASE-01 workspace validation gate and recorded its evidence in the project status and restore-point docs.
 - Remote publish remains pending GitHub authentication and remote repository configuration, so the checkpoint is fully validated locally but not yet published remotely.

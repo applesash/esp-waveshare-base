@@ -567,6 +567,9 @@ The preferred recovery order is remote annotated tag, local snapshot generated f
 ### RS-STARTUP-005
 At startup, the agent shall report the latest completed phase, local and remote checkpoint tags, latest successful validation report, and snapshot verification state before modifying files.
 
+### RS-STARTUP-006
+Before invoking any repository script, the agent shall detect the host operating system and run the matching script family for that environment. On Linux and macOS, prefer the `.sh` entry points; on Windows, prefer the `.ps1` or `.cmd` entry points. The agent shall not call a script from a different OS family without explicit, documented justification and acceptance.
+
 ## 22. ADR, versioning, and migration
 
 ### RS-ADR-001

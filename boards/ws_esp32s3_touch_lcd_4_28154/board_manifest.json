@@ -4,5 +4,7 @@
   "target": "esp32s3",
   "status": "UNVERIFIED",
   "capabilities": {},
-  "sources": []
+  "sources": [
+    "https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4"
+  ]
 }
