@@ -28,6 +28,8 @@ RTC/SD diagnostic: [RTC_SD_DIAGNOSTIC_2026-09-16_233000.md](evidence/RTC_SD_DIAG
 
 SD power-cycle validation: [SD_POWER_CYCLE_VALIDATION_2026-09-16_233400.md](evidence/SD_POWER_CYCLE_VALIDATION_2026-09-16_233400.md). SD-first sequencing still timed out; card/slot compatibility remains pending.
 
+Raw SD probe: [SD_RAW_PROBE_2026-09-16_234600.md](evidence/SD_RAW_PROBE_2026-09-16_234600.md). Native SDMMC card initialization timed out at 400 kHz, before filesystem detection; exFAT has not been reached.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)

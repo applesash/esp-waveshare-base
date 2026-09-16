@@ -3,6 +3,8 @@
 
 #include "driver/i2c_master.h"
 #include "driver/uart.h"
+#include "driver/sdmmc_host.h"
+#include "sdmmc_cmd.h"
 #include "bsp/display.h"
 #include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
@@ -106,6 +108,33 @@ static void check_rtc(void)
 
 static void check_sdcard(void)
 {
+    sdmmc_host_t probe_host = SDMMC_HOST_DEFAULT();
+    sdmmc_slot_config_t probe_slot = SDMMC_SLOT_CONFIG_DEFAULT();
+    sdmmc_card_t probe_card = {0};
+    probe_host.max_freq_khz = SDMMC_FREQ_PROBING;
+    probe_slot.clk = GPIO_NUM_2;
+    probe_slot.cmd = GPIO_NUM_1;
+    probe_slot.d0 = GPIO_NUM_4;
+    probe_slot.d1 = GPIO_NUM_NC;
+    probe_slot.d2 = GPIO_NUM_NC;
+    probe_slot.d3 = GPIO_NUM_NC;
+    probe_slot.width = 1;
+    esp_err_t probe_error = sdmmc_host_init();
+    if (probe_error == ESP_OK) {
+        probe_error = sdmmc_host_init_slot(probe_host.slot, &probe_slot);
+    }
+    if (probe_error == ESP_OK) {
+        probe_error = sdmmc_card_init(&probe_host, &probe_card);
+    }
+    printf("sdcard_raw_probe=%s\n", esp_err_to_name(probe_error));
+    if (probe_error == ESP_OK) {
+        printf("sdcard_raw_name=%s capacity_mb=%" PRIu32 " max_freq_khz=%" PRIu32 "\n",
+               probe_card.cid.name,
+               (uint32_t)(((uint64_t)probe_card.csd.capacity * probe_card.csd.sector_size) / (1024 * 1024)),
+               probe_card.max_freq_khz);
+    }
+    sdmmc_host_deinit();
+
     esp_err_t err = bsp_sdcard_mount();
     printf("sdcard_mount=%s\n", esp_err_to_name(err));
     if (err == ESP_OK) {
