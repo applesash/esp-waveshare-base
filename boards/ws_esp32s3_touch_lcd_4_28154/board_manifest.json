@@ -2,15 +2,27 @@
   "sku": "28154",
   "product": "Waveshare ESP32-S3-Touch-LCD-4",
   "target": "esp32s3",
-  "status": "IMPLEMENTED",
+  "status": "VERIFIED",
   "capabilities": {
+    "display": { "status": "PHYSICALLY_TESTED", "notes": "Exact board test pattern and visual validation recorded." },
+    "touch": { "status": "PHYSICALLY_TESTED", "notes": "GT911 I2C polling and coordinates recorded; no direct ESP32 interrupt pin." },
     "storage": {
       "status": "PHYSICALLY_TESTED",
       "implementation": "board_storage",
       "interface": "native 1-bit SDMMC",
       "evidence": "docs/devices/28154/evidence/STORAGE_BSP_PROMOTION_SECOND_BOARD_2026-09-17_220510.md",
       "notes": "Validated on MAC e8:3d:c1:f7:89:c0; MAC 94:a9:90:dd:16:6c has an instance-specific SDMMC timeout."
-    }
+    },
+    "rs485": { "status": "PHYSICALLY_TESTED", "notes": "UART0 GPIO44/GPIO43 echo recorded; board-managed direction." },
+    "can": { "status": "VERIFIED", "notes": "GPIO6/GPIO0 source-backed; physical transport pending." },
+    "rtc": { "status": "IMPLEMENTED", "notes": "I2C transport at 0x51 tested; oscillator-stop status observed." },
+    "helper": { "status": "PHYSICALLY_TESTED", "notes": "CH32V003 at 0x24 and board preparation recorded." },
+    "backlight": { "status": "PHYSICALLY_TESTED", "notes": "CH32 helper PWM path used by managed BSP; visual display validation recorded." },
+    "battery_adc": { "status": "PHYSICALLY_TESTED", "notes": "CH32 helper ADC transport recorded." },
+    "buzzer": { "status": "VERIFIED", "notes": "EXIO6 control source-backed; no physical acoustic validation." },
+    "network": { "status": "VERIFIED" },
+    "usb": { "status": "PHYSICALLY_TESTED", "notes": "USB Serial/JTAG connection validated." },
+    "imu": { "status": "NOT_PRESENT" }
   },
   "sources": [
     "https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4"

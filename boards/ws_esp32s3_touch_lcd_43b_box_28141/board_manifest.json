@@ -10,7 +10,7 @@
     "rs485": { "status": "PHYSICALLY_TESTED", "implementation": "board_rs485", "interface": "UART2 GPIO44/GPIO43" },
     "can": { "status": "VERIFIED", "notes": "Physical validation deferred by owner." },
     "rtc": { "status": "IMPLEMENTED", "notes": "I2C transport tested; oscillator-stop status set." },
-    "isolated_io": { "status": "PHYSICALLY_TESTED", "notes": "DO0/DI0 and DO1/DI1 loopbacks passed; external safe-state policy unresolved." },
+    "isolated_io": { "status": "PHYSICALLY_TESTED", "notes": "DO0/DI0 and DO1/DI1 loopbacks passed; owner-approved startup policy leaves external outputs unconfigured until authorized I/O service ownership." },
     "backlight": { "status": "VERIFIED", "notes": "CH422G EXIO2 active high; low is the source-backed off state." },
     "wifi_bluetooth": { "status": "VERIFIED" },
     "power": { "status": "VERIFIED", "notes": "7-36V input documented; safe power policy pending." },

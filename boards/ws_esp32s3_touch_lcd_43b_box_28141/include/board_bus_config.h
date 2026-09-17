@@ -2,6 +2,7 @@
 
 #define BOARD_CH422G_I2C_PORT 0
 #define BOARD_CH422G_I2C_FREQ_HZ 400000
+/* CH422G command byte 0x48 / 0x70 represented as 7-bit I2C endpoints. */
 #define BOARD_CH422G_CONFIGURATION_ADDRESS 0x24
 #define BOARD_CH422G_OUTPUT_ADDRESS 0x38
 #define BOARD_GT911_I2C_ADDRESS 0x5d

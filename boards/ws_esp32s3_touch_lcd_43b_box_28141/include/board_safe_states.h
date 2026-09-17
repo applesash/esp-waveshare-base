@@ -12,5 +12,7 @@
 #define BOARD_INIT_ISOLATED_DO1_CHANNEL 9
 #define BOARD_INIT_ISOLATED_DO_DEFAULT_LEVEL 1
 
-/* Relay/output safety policy is not source-backed for this board and remains unresolved. */
-#define BOARD_SAFE_STATE_EXTERNAL_OUTPUTS_RESOLVED 0
+/* Owner-approved: isolated outputs remain unconfigured until I/O service ownership. */
+#define BOARD_SAFE_STATE_EXTERNAL_OUTPUTS_RESOLVED 1
+#define BOARD_SAFE_STATE_EXTERNAL_OUTPUTS_CONFIGURE_AT_STARTUP 0
+#define BOARD_SAFE_STATE_EXTERNAL_OUTPUTS_REQUIRE_AUTHORIZED_SERVICE 1

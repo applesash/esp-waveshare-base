@@ -1,2 +1,7 @@
 #pragma once
-/* UNVERIFIED: do not add guessed hardware values. */
+
+#define BOARD_SHARED_I2C_PORT 0
+#define BOARD_SHARED_I2C_FREQ_HZ 400000
+#define BOARD_CH32_I2C_ADDRESS 0x24
+#define BOARD_RTC_I2C_ADDRESS 0x51
+#define BOARD_GT911_I2C_ADDRESS 0x5d

@@ -6,7 +6,7 @@
 | IO_EXPANDER_I2C_SCL | GPIO9 | N/A | I/O | N/A | N/A | N/A | N/A | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | VERIFIED |
 | TOUCH_I2C_SCL | GPIO7 | N/A | I/O | N/A | N/A | N/A | N/A | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | VERIFIED |
 | TOUCH_I2C_SDA | GPIO15 | N/A | I/O | N/A | N/A | N/A | N/A | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | VERIFIED |
-| TOUCH_INT | not specified on the source page | N/A | Input | N/A | N/A | N/A | N/A | https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4 | UNVERIFIED |
+| TOUCH_INT | N/A | N/A | Not connected to ESP32 in official BSP path | N/A | N/A | N/A | N/A | Official managed BSP `BSP_LCD_TOUCH_INT GPIO_NUM_NC` | VERIFIED; use I2C polling |
 | GREEN_CONNECTOR_SDA | GPIO15 | H4 SDA | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | GREEN_CONNECTOR_SCL | GPIO7 | H4 SCL | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | RS485_TX | GPIO44 | H4 RS485_TX / transceiver DI | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED; board direction control |
@@ -17,7 +17,10 @@
 | SDMMC_CMD | GPIO1 | N/A | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED |
 | SDMMC_D0 | GPIO4 | N/A | I/O | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED |
 | SD_CARD_CS | N/A | EXIO4 | Not used by active native 1-bit SDMMC BSP path | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | IMPLEMENTATION-SPECIFIC / NOT USED |
-| CH32_BUZZER_ENABLE | N/A | EXIO6 | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED |
+| CH32_TOUCH_RESET | N/A | EXIO1 | Output | low assert, high release | N/A | official prepare asserts then releases | source-backed reset sequence | Official `02_SD_Test` CH32 output mask and prepare sequence | VERIFIED |
+| CH32_LCD_RESET | N/A | EXIO3 | Output | low assert, high release | N/A | official prepare asserts then releases | source-backed reset sequence | Official `02_SD_Test` CH32 output mask and prepare sequence | VERIFIED |
+| CH32_SYSTEM_ENABLE | N/A | EXIO5 | Output | low assert, high release | N/A | official prepare asserts then releases | source-backed system-enable sequence | Official `02_SD_Test` CH32 output mask and prepare sequence | VERIFIED |
+| CH32_BUZZER_ENABLE | N/A | EXIO6 | Output | low during official prepare | N/A | official prepare drives low | disabled until authorized service ownership | Official `02_SD_Test` CH32 output mask and prepare sequence | VERIFIED |
 | CH32_RTC_INTERRUPT | N/A | EXIO7 | Input | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/HARDWARE_REFERENCE.md | VERIFIED |
 | CH32_BACKLIGHT_PWM | N/A | EXIO0 PWM path | Output | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |
 | CH32_BATTERY_ADC | N/A | EXIO0 ADC path | Input | N/A | N/A | N/A | N/A | https://github.com/waveshareteam/ESP32-S3-Touch-LCD-4/blob/main/hardware/schematics/ESP32-S3-Touch-LCD-4%20V4.0.pdf | VERIFIED |

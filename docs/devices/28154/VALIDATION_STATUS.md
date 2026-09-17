@@ -4,6 +4,8 @@ Source-based hardware facts have been extracted from the official Waveshare page
 
 Current status: CONNECTION, GT911 TOUCH COORDINATES, AND LCD TEST PATTERN VERIFIED
 
+Phase-02 safe-state baseline: source-backed CH32 prepare levels are recorded in `board_safe_states.h`: reset and buzzer asserted low, then system enable/LCD reset/touch reset released high. Owner-approved policy leaves external connector outputs unconfigured until an authorized service owns them. GT911 has no direct ESP32 interrupt GPIO in the official BSP (`GPIO_NUM_NC`); its validated initial path is I2C polling.
+
 LCD implementation status: ST7701 initialization is delegated to the official managed BSP; RGB565 channel mapping and timing values are source-recorded. Runtime initialization and RGB test-pattern transfer passed.
 
 LCD firmware implementation is present through the official managed BSP and has been flashed. Runtime initialization and visual RGB pattern validation passed.

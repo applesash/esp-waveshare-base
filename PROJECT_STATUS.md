@@ -15,11 +15,18 @@
 - SKU 30838: SOURCE-IDENTIFIED; relay family and GPIO terms populated from official wiki; physical validation pending
 
 ## Current work item
-Capture exact-SKU source evidence for each supported board, record source-backed GPIO and capability facts, and complete the documented PHASE-02 closeout tasks.
+Complete the SKU 30838 source, GPIO, capability, and safe-state baseline, then reconcile Phase-02 traceability, status, acceptance, and recovery records.
+
+## Resume Point: 2026-09-18
+
+- SKU 28154: Phase-02 source, GPIO, capability, and safe-state baseline is complete. The exact-SKU storage API passed on MAC `e8:3d:c1:f7:89:c0`; MAC `94:a9:90:dd:16:6c` has an instance-specific SDMMC hardware-path timeout recorded in evidence.
+- SKU 28141: Phase-02 source, GPIO, capability, and safe-state baseline is complete. Physical evidence covers display, GT911 raw coordinates, SPI SD through the official sample, RS485 echo, isolated I/O loopbacks, and RTC transport. The repository SPI storage adapter currently times out and is deferred as a Phase-03 implementation defect; it does not invalidate Phase-02 hardware evidence.
+- SKU 30838: remains the Phase-02 blocker. Complete exact PoE 8DI/8RO source reconciliation, TCA9554/relay safe states, SD control, RTC/Ethernet control facts, capability manifest, and board safe-state header before global Phase-02 closeout.
+- Global: `PROJECT_STATUS.md`, `TRACEABILITY_MATRIX.md`, phase acceptance documentation, and recovery records require reconciliation after 30838 evidence is complete. Do not claim Phase-02 closed until those updates and the mandatory closeout verifier pass.
 
 ## Blocking issues
-- No physical validation has been run on the exact hardware yet.
-- PHASE-02 closeout items are complete: checkpoint, annotated tag, remote push, recovery verification, and snapshot checksum are all verified.
+- SKU 30838 Phase-02 safe-state/control evidence remains incomplete.
+- Global Phase-02 status, traceability, acceptance, and restore-point records are stale and must be reconciled before closeout.
 
 ## Known validation needs
 - Exact-SKU GPIO mapping for 28141 remains limited because the source page describes the family rather than a detailed exact-bus map.
