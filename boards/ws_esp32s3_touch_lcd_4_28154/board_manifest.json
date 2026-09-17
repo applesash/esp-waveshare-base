@@ -2,8 +2,16 @@
   "sku": "28154",
   "product": "Waveshare ESP32-S3-Touch-LCD-4",
   "target": "esp32s3",
-  "status": "UNVERIFIED",
-  "capabilities": {},
+  "status": "IMPLEMENTED",
+  "capabilities": {
+    "storage": {
+      "status": "PHYSICALLY_TESTED",
+      "implementation": "board_storage",
+      "interface": "native 1-bit SDMMC",
+      "evidence": "docs/devices/28154/evidence/STORAGE_BSP_PROMOTION_SECOND_BOARD_2026-09-17_220510.md",
+      "notes": "Validated on MAC e8:3d:c1:f7:89:c0; MAC 94:a9:90:dd:16:6c has an instance-specific SDMMC timeout."
+    }
+  },
   "sources": [
     "https://www.waveshare.com/wiki/ESP32-S3-Touch-LCD-4"
   ]

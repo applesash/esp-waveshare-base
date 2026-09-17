@@ -1,2 +1,4 @@
 #pragma once
-/* UNVERIFIED: do not add guessed hardware values. */
+
+#define BOARD_CAPABILITY_STORAGE_IMPLEMENTED 1
+#define BOARD_CAPABILITY_STORAGE_PHYSICALLY_TESTED 1

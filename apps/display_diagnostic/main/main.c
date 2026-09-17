@@ -1,12 +1,10 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+#include "board_storage.h"
 #include "driver/i2c_master.h"
 #include "driver/uart.h"
-#include "driver/sdmmc_host.h"
-#include "sdmmc_cmd.h"
 #include "esp_io_expander.h"
-#include "esp_rom_sys.h"
 #include "bsp/display.h"
 #include "bsp/esp32_s3_touch_lcd_4.h"
 #include "esp_chip_info.h"
@@ -87,63 +85,6 @@ static void check_helper(void)
            interrupt_state);
 }
 
-static void prepare_board_for_sd(void)
-{
-    gpio_config_t bus_pins = {
-        .pin_bit_mask = (1ULL << TOUCH_SDA_GPIO) | (1ULL << TOUCH_SCL_GPIO),
-        .mode = GPIO_MODE_INPUT,
-        .pull_up_en = GPIO_PULLUP_ENABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
-        .intr_type = GPIO_INTR_DISABLE,
-    };
-    ESP_ERROR_CHECK(gpio_config(&bus_pins));
-    gpio_set_direction(TOUCH_SCL_GPIO, GPIO_MODE_OUTPUT_OD);
-    gpio_set_pull_mode(TOUCH_SCL_GPIO, GPIO_PULLUP_ONLY);
-    gpio_set_level(TOUCH_SCL_GPIO, 1);
-    esp_rom_delay_us(10);
-    for (int pulse = 0; pulse < 9 && gpio_get_level(TOUCH_SDA_GPIO) == 0; ++pulse) {
-        gpio_set_level(TOUCH_SCL_GPIO, 0);
-        esp_rom_delay_us(10);
-        gpio_set_level(TOUCH_SCL_GPIO, 1);
-        esp_rom_delay_us(10);
-    }
-    gpio_set_direction(TOUCH_SDA_GPIO, GPIO_MODE_OUTPUT_OD);
-    gpio_set_pull_mode(TOUCH_SDA_GPIO, GPIO_PULLUP_ONLY);
-    gpio_set_level(TOUCH_SDA_GPIO, 0);
-    esp_rom_delay_us(10);
-    gpio_set_level(TOUCH_SCL_GPIO, 1);
-    esp_rom_delay_us(10);
-    gpio_set_level(TOUCH_SDA_GPIO, 1);
-    esp_rom_delay_us(10);
-    gpio_set_direction(TOUCH_SDA_GPIO, GPIO_MODE_INPUT);
-    gpio_set_direction(TOUCH_SCL_GPIO, GPIO_MODE_INPUT);
-    gpio_set_pull_mode(TOUCH_SDA_GPIO, GPIO_PULLUP_ONLY);
-    gpio_set_pull_mode(TOUCH_SCL_GPIO, GPIO_PULLUP_ONLY);
-    vTaskDelay(pdMS_TO_TICKS(20));
-
-    esp_io_expander_handle_t helper = bsp_io_expander_init();
-    const uint32_t output_mask = IO_EXPANDER_PIN_NUM_1 |
-                                 IO_EXPANDER_PIN_NUM_3 |
-                                 IO_EXPANDER_PIN_NUM_5 |
-                                 IO_EXPANDER_PIN_NUM_6;
-
-    if (helper == NULL) {
-        printf("sd_board_prepare=FAIL helper_init\n");
-        return;
-    }
-    ESP_ERROR_CHECK(esp_io_expander_set_dir(helper, output_mask, IO_EXPANDER_OUTPUT));
-    ESP_ERROR_CHECK(esp_io_expander_set_dir(helper, IO_EXPANDER_PIN_NUM_7, IO_EXPANDER_INPUT));
-    ESP_ERROR_CHECK(esp_io_expander_set_level(helper, output_mask, 0));
-    vTaskDelay(pdMS_TO_TICKS(200));
-    ESP_ERROR_CHECK(esp_io_expander_set_level(helper,
-                                              IO_EXPANDER_PIN_NUM_5 |
-                                              IO_EXPANDER_PIN_NUM_1 |
-                                              IO_EXPANDER_PIN_NUM_3,
-                                              1));
-    vTaskDelay(pdMS_TO_TICKS(200));
-    printf("sd_board_prepare=PASS ch32=0x24 sys_en=1 lcd_reset=1 touch_reset=1\n");
-}
-
 static void check_rtc(void)
 {
     i2c_master_bus_handle_t bus = bsp_i2c_get_handle();
@@ -167,46 +108,20 @@ static void check_rtc(void)
 
 static void check_sdcard(void)
 {
-    esp_err_t probe_error = ESP_FAIL;
-    sdmmc_card_t probe_card = {0};
-    for (int attempt = 1; attempt <= 3; ++attempt) {
-        sdmmc_host_t probe_host = SDMMC_HOST_DEFAULT();
-        sdmmc_slot_config_t probe_slot = SDMMC_SLOT_CONFIG_DEFAULT();
-        probe_host.max_freq_khz = SDMMC_FREQ_PROBING;
-        probe_slot.clk = GPIO_NUM_2;
-        probe_slot.cmd = GPIO_NUM_1;
-        probe_slot.d0 = GPIO_NUM_4;
-        probe_slot.d1 = GPIO_NUM_NC;
-        probe_slot.d2 = GPIO_NUM_NC;
-        probe_slot.d3 = GPIO_NUM_NC;
-        probe_slot.width = 1;
-        probe_slot.flags |= SDMMC_SLOT_FLAG_INTERNAL_PULLUP;
-        probe_error = sdmmc_host_init();
-        if (probe_error == ESP_OK) {
-            probe_error = sdmmc_host_init_slot(probe_host.slot, &probe_slot);
-        }
-        if (probe_error == ESP_OK) {
-            probe_error = sdmmc_card_init(&probe_host, &probe_card);
-        }
-        printf("sdcard_raw_attempt=%d result=%s\n", attempt, esp_err_to_name(probe_error));
-        sdmmc_host_deinit();
-        if (probe_error == ESP_OK) {
-            break;
-        }
-        vTaskDelay(pdMS_TO_TICKS(100));
-    }
+    board_storage_card_info_t card_info = {0};
+    esp_err_t probe_error = board_storage_probe(&card_info);
     printf("sdcard_raw_probe=%s\n", esp_err_to_name(probe_error));
     if (probe_error == ESP_OK) {
-        printf("sdcard_raw_name=%s capacity_mb=%" PRIu32 " max_freq_khz=%" PRIu32 "\n",
-               probe_card.cid.name,
-               (uint32_t)(((uint64_t)probe_card.csd.capacity * probe_card.csd.sector_size) / (1024 * 1024)),
-               probe_card.max_freq_khz);
+        printf("sdcard_raw_card=name:%s capacity_mb:%" PRIu32 " max_freq_khz:%" PRIu32 "\n",
+               card_info.name,
+               card_info.capacity_mb,
+               card_info.max_freq_khz);
     }
-    esp_err_t err = bsp_sdcard_mount();
+    esp_err_t err = board_storage_mount();
     printf("sdcard_mount=%s\n", esp_err_to_name(err));
     if (err == ESP_OK) {
         printf("sdcard=PASS card_detected=1\n");
-        bsp_sdcard_unmount();
+        board_storage_unmount();
     } else {
         printf("sdcard=NOT_AVAILABLE_OR_NOT_INSERTED\n");
     }
@@ -387,7 +302,8 @@ void app_main(void)
            TOUCH_SDA_GPIO,
            TOUCH_SCL_GPIO);
 
-        prepare_board_for_sd();
+    esp_err_t storage_prepare_error = board_storage_prepare();
+    printf("sd_board_prepare=%s\n", esp_err_to_name(storage_prepare_error));
     check_sdcard();
     initialize_display();
     initialize_rs485();

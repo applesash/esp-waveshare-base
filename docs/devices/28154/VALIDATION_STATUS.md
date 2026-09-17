@@ -36,6 +36,20 @@ Official sequence comparison: [SD_OFFICIAL_SEQUENCE_VALIDATION_2026-09-17_001000
 
 SD retry/pull-up validation: [SD_RETRY_PULLUP_VALIDATION_2026-09-17_002500.md](evidence/SD_RETRY_PULLUP_VALIDATION_2026-09-17_002500.md). Three 400 kHz attempts with ESP-IDF internal pull-ups all timed out; no format or write occurred.
 
+SD timing-matrix validation: [SD_TIMING_MATRIX_VALIDATION_2026-09-17_205551.md](evidence/SD_TIMING_MATRIX_VALIDATION_2026-09-17_205551.md). With a new empty FAT32 16 GB card, post-helper delays of 0, 100, 500, and 2000 ms all timed out before filesystem detection; generic boot-settle timing is not the root cause within the tested range.
+
+SD EXIO4-control validation: [SD_EXIO4_CONTROL_VALIDATION_2026-09-17_210434.md](evidence/SD_EXIO4_CONTROL_VALIDATION_2026-09-17_210434.md). The CH32 helper accepted EXIO4 levels 0 and 1, but both native SDMMC probes timed out before filesystem detection; EXIO4 level alone does not resolve the failure.
+
+Official SD sample validation: [SD_OFFICIAL_SAMPLE_VALIDATION_2026-09-17_211349.md](evidence/SD_OFFICIAL_SAMPLE_VALIDATION_2026-09-17_211349.md). The unmodified official Waveshare `02_SD_Test` reproduced the same native SDMMC timeout with the empty FAT32 16 GB card before mount, write, or format; this rules out the repository diagnostic implementation as the cause.
+
+Second-board official SD sample validation: [SD_OFFICIAL_SAMPLE_SECOND_BOARD_2026-09-17_211847.md](evidence/SD_OFFICIAL_SAMPLE_SECOND_BOARD_2026-09-17_211847.md). A second MAC-registered SKU 28154 board initialized the same card through SDMMC, then mounted, formatted, and passed post-format write/read checks with the official sample. This isolates the first board's timeout to its physical SDMMC path.
+
+Second-board repository SD diagnostic: [SD_REPOSITORY_DIAGNOSTIC_SECOND_BOARD_2026-09-17_213109.md](evidence/SD_REPOSITORY_DIAGNOSTIC_SECOND_BOARD_2026-09-17_213109.md). The repository's read-only native SDMMC diagnostic passed raw initialization and BSP mount on board MAC `e8:3d:c1:f7:89:c0`, then completed display, helper, RTC, and touch checks successfully.
+
+Storage BSP promotion: [STORAGE_BSP_PROMOTION_SECOND_BOARD_2026-09-17_220510.md](evidence/STORAGE_BSP_PROMOTION_SECOND_BOARD_2026-09-17_220510.md). The source-backed 28154 CH32 preparation and native SDMMC lifecycle now reside in the exact-SKU board component and passed through its read-only API on board MAC `e8:3d:c1:f7:89:c0`.
+
+Second-board repository touch diagnostic: [TOUCH_REPOSITORY_DIAGNOSTIC_SECOND_BOARD_2026-09-17_213109.md](evidence/TOUCH_REPOSITORY_DIAGNOSTIC_SECOND_BOARD_2026-09-17_213109.md). Live GT911 touch frames and decoded coordinates across the 480x480 panel passed on board MAC `e8:3d:c1:f7:89:c0`.
+
 Diagnostic run: [DIAGNOSTIC_RUN_2026-09-16_220000.md](evidence/DIAGNOSTIC_RUN_2026-09-16_220000.md)
 
 Touch run: [TOUCH_DIAGNOSTIC_2026-09-16_220800.md](evidence/TOUCH_DIAGNOSTIC_2026-09-16_220800.md)

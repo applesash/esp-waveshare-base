@@ -1,2 +1,16 @@
 #pragma once
-/* UNVERIFIED: do not add guessed hardware values. */
+
+/* Source-backed initialization levels; not a substitute for approved safe-state policy. */
+#define BOARD_INIT_LCD_RESET_EXPANDER_CHANNEL 3
+#define BOARD_INIT_LCD_RESET_ASSERT_LEVEL 0
+#define BOARD_INIT_TOUCH_RESET_EXPANDER_CHANNEL 1
+#define BOARD_INIT_TOUCH_RESET_ASSERT_LEVEL 0
+#define BOARD_INIT_BACKLIGHT_EXPANDER_CHANNEL 2
+#define BOARD_INIT_BACKLIGHT_OFF_LEVEL 0
+#define BOARD_INIT_BACKLIGHT_ON_LEVEL 1
+#define BOARD_INIT_ISOLATED_DO0_CHANNEL 8
+#define BOARD_INIT_ISOLATED_DO1_CHANNEL 9
+#define BOARD_INIT_ISOLATED_DO_DEFAULT_LEVEL 1
+
+/* Relay/output safety policy is not source-backed for this board and remains unresolved. */
+#define BOARD_SAFE_STATE_EXTERNAL_OUTPUTS_RESOLVED 0

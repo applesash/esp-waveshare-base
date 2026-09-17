@@ -2,8 +2,21 @@
   "sku": "28141",
   "product": "Waveshare ESP32-S3-Touch-LCD-4.3B-BOX",
   "target": "esp32s3",
-  "status": "UNVERIFIED",
-  "capabilities": {},
+  "status": "IMPLEMENTED",
+  "capabilities": {
+    "display": { "status": "PHYSICALLY_TESTED", "implementation": "board_display" },
+    "touch": { "status": "PHYSICALLY_TESTED", "implementation": "board_touch" },
+    "storage": { "status": "IMPLEMENTED", "implementation": "board_storage", "interface": "SPI via CH422G EXIO4", "notes": "Official sample passed; repository adapter mount currently times out." },
+    "rs485": { "status": "PHYSICALLY_TESTED", "implementation": "board_rs485", "interface": "UART2 GPIO44/GPIO43" },
+    "can": { "status": "VERIFIED", "notes": "Physical validation deferred by owner." },
+    "rtc": { "status": "IMPLEMENTED", "notes": "I2C transport tested; oscillator-stop status set." },
+    "isolated_io": { "status": "PHYSICALLY_TESTED", "notes": "DO0/DI0 and DO1/DI1 loopbacks passed; external safe-state policy unresolved." },
+    "backlight": { "status": "VERIFIED", "notes": "CH422G EXIO2 active high; low is the source-backed off state." },
+    "wifi_bluetooth": { "status": "VERIFIED" },
+    "power": { "status": "VERIFIED", "notes": "7-36V input documented; safe power policy pending." },
+    "usb": { "status": "VERIFIED" },
+    "buzzer": { "status": "NOT_PRESENT" }
+  },
   "sources": [
     "https://www.waveshare.com/esp32-s3-touch-lcd-4.3b.htm?sku=28141",
     "https://docs.waveshare.com/ESP32-S3-Touch-LCD-4.3B"

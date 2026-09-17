@@ -98,7 +98,7 @@ dependencies:
       type: idf
     version: 5.5.5
   lvgl/lvgl:
-    component_hash: d5e723db3a3feca71e34e333a6598b7624e3822577d374e1d44f0e18374952e1
+    component_hash: 7d82410747bbfb319531449749e940f440f8414f041f9eaba13f0d1dd7f58cdd
     dependencies:
     - name: espressif/freetype
       registry_url: https://components.espressif.com
@@ -127,7 +127,7 @@ dependencies:
     source:
       registry_url: https://components.espressif.com
       type: service
-    version: 9.6.0
+    version: 9.6.0~1
   waveshare/custom_io_expander_ch32v003:
     component_hash: 6ed45a7dbe31c1724b13516f9587fdf688b4a89042afd7bfadcae85cb72f5e45
     dependencies:
@@ -180,6 +180,6 @@ dependencies:
     version: 3.0.0
 direct_dependencies:
 - waveshare/esp32_s3_touch_lcd_4
-manifest_hash: 06807a9ee2d9530064c0a68dc64a36e0aa9ba7309026bb5ab716e287c60cc280
+manifest_hash: c358946f752cd257481d0eedbf21acaa5c129eb7d12e2e737b5f18752a02d339
 target: esp32s3
 version: 2.0.0

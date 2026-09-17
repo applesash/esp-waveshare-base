@@ -10,7 +10,7 @@
 | RTC | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | RTC_IN / RTC_I2C path present | Not physically tested |
 | RGB status LED | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | GPIO38 LED output | Not physically tested |
 | Buzzer | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | GPIO46 output | Not physically tested |
-| SD card | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | SPI/SD interface present | Not physically tested |
+| SD card | VERIFIED | Official PoE demo `WS_SD.h` | Native 1-bit SDMMC: CLK GPIO48, CMD GPIO47, D0 GPIO45 | Not physically tested |
 | Power input / wide-voltage supply | VERIFIED | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | 7~36V input path present | Not physically tested |
 | Display / LCD | NOT_PRESENT | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | Relay controller board; no onboard LCD listed | Not applicable |
 | Touch | NOT_PRESENT | https://www.waveshare.com/wiki/ESP32-S3-ETH-8DI-8RO | No onboard touch controller listed | Not applicable |

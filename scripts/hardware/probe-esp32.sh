@@ -72,9 +72,12 @@ flash_output="$(python -m esptool --port "$port" flash_id 2>&1)" || {
 }
 usb_output="$(lsusb 2>/dev/null | grep -i -E 'Espressif|303a:' || true)"
 actual_mac="$(printf '%s\n' "$chip_output" | awk '/MAC:/ { value=$NF } END { print tolower(value) }')"
-expected_mac="$(awk -v requested_sku="$sku" '$1 == requested_sku { print tolower($2); exit }' "$registry")"
-if [[ "$sku" != unknown && -n "$expected_mac" && "$actual_mac" != "$expected_mac" ]]; then
-    printf 'MAC/SKU mismatch for %s: expected %s, detected %s\n' "$sku" "$expected_mac" "$actual_mac" >&2
+expected_macs="$(awk -v requested_sku="$sku" '$1 == requested_sku { print tolower($2) }' "$registry")"
+if [[ "$sku" != unknown && -n "$expected_macs" ]] && ! awk -v requested_sku="$sku" -v detected_mac="$actual_mac" '
+    $1 == requested_sku && tolower($2) == detected_mac { found = 1 }
+    END { exit !found }
+' "$registry"; then
+    printf 'MAC/SKU mismatch for %s: detected %s is not registered for this SKU\n' "$sku" "$actual_mac" >&2
     exit 1
 fi
 
@@ -86,8 +89,8 @@ fi
     printf -- '- Probe type: read-only chip and flash identity; no erase or firmware write\n'
     printf -- '- USB descriptor: `%s`\n\n' "${usb_output:-not reported}"
     printf -- '- Detected MAC: `%s`\n' "$actual_mac"
-    if [[ -n "$expected_mac" ]]; then
-        printf -- '- Expected MAC for SKU `%s`: `%s` (MATCH)\n\n' "$sku" "$expected_mac"
+    if [[ -n "$expected_macs" ]]; then
+        printf -- '- Registered MAC for SKU `%s`: `%s` (MATCH)\n\n' "$sku" "$actual_mac"
     else
         printf -- '- Expected MAC for SKU `%s`: not registered\n\n' "$sku"
     fi

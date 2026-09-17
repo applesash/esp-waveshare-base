@@ -11,6 +11,14 @@ Validate power, backlight, RGB timing, colour bars, and static labels.
 ## Gate rule
 Do not enter this phase unless the prior mandatory gate passed. Do not leave until implementation, required tests, documentation, traceability, simulation, and applicable physical evidence pass.
 
+## Applicable SKU Validation
+
+Display, backlight, RGB timing, colour bars, and static-label behavior shall be implemented and physically validated independently on SKU 28154 and SKU 28141 before phase closeout. SKU 30838 has no display and is excluded only because its capability matrix records the block as not present. A passing result on one touch-display SKU or board instance shall not satisfy the other.
+
+## BSP Promotion And Evidence Retention
+
+Before phase closeout, promote each source-backed and physically validated board initialization sequence into the applicable exact-SKU BSP. Expose only a neutral, provider-facing board API; applications and diagnostics shall not retain reusable GPIO, bus, expander, driver, or filesystem initialization logic. Keep diagnostic probes, captured logs, source-register entries, and physical-validation evidence in place as immutable learning records. Record board-instance-specific outcomes by MAC or other stable identity without generalizing a physical defect to every board of the SKU.
+
 ## Required report
 - Requirements covered
 - Files changed
